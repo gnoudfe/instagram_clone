@@ -3,6 +3,10 @@ import React from "react";
 const RegisterForm = () => {
   return (
     <form>
+      { /* 
+        TODO : change to use Input component
+        *Infor: Register page have 5 inputs : username, email, password, gender, date of birth
+    */}
       <input
         type="text"
         placeholder="Username"
