@@ -62,7 +62,6 @@ const RegisterForm = () => {
       console.error("Login failed:", error);
     }
   };
-  console.log("errors", errors);
 
   return (
     <form className="flex flex-col gap-3 w-full" onSubmit={handleSubmit}>
@@ -132,13 +131,6 @@ const RegisterForm = () => {
           Log in
         </Link>
       </p>
-
-      <Link
-        href={"/forgot-password"}
-        className="text-sm text-slate-500 text-center"
-      >
-        Forgot your password?
-      </Link>
 
       <Button type="submit">Sign up</Button>
     </form>

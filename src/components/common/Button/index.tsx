@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
 }) => {
   const baseClasses =
-    "py-2 px-4 font-medium focus:outline-none transition-colors";
+    "py-2 px-4 font-medium focus:outline-none transition-colors flex items-center justify-center gap-2";
 
   const roundedClasses = {
     sm: "rounded-sm",

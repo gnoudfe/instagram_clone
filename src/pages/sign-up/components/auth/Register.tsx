@@ -13,6 +13,11 @@ const Register = () => {
       <p className="text-center text-base w-full mt-4">
         Sign up to see photos and videos from your friends.
       </p>
+      <span className="w-full text-center mx-auto text-sm mt-4 relative block">
+        <div className="before:absolute before:bg-gray-500 before:w-[45%] before:left-0 before:top-1/2  before:h-[2px]"></div>
+        OR
+        <div className="after:absolute after:bg-gray-500 after:w-[45%] after:right-0 after:top-1/2  after:h-[2px]"></div>
+      </span>
       <div className="mt-5 ">
         <Button type="submit" fullWidth rounded="lg" variant="primary">
           Log in with Facebook

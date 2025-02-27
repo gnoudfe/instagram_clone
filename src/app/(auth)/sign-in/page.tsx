@@ -1,7 +1,9 @@
+import Login from "@/pages/sign-in/components/auth/Login";
+import SignInLayout from "@/pages/sign-in/layout/SignInLayout";
 import React from "react";
 
 const LoginPage = () => {
-  return <h1> hehe</h1>;
+  return <SignInLayout content={<Login />} />;
 };
 
 export default LoginPage;

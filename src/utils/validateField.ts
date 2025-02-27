@@ -1,4 +1,4 @@
-import { Credentials } from "@/pages/sign-in/types/types";
+import { Credentials } from "@/pages/sign-up/types/types";
 
 export const validateField = (
   name: keyof Credentials,
