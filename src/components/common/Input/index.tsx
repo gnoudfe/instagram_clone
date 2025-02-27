@@ -1,15 +1,16 @@
 // src/components/common/Input.tsx
-import { InputProps } from '@/types/types';
-import React from 'react';
+import { InputProps } from "@/types/types";
+import React from "react";
 
 const Input: React.FC<InputProps> = ({
   type,
   name,
   value,
   onChange,
+  onBlur,
   placeholder,
   required = false,
-  label
+  label,
 }) => {
   return (
     <div className="w-full">
@@ -26,7 +27,8 @@ const Input: React.FC<InputProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="w-full p-3 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none"
+        onBlur={onBlur}
+        className="w-full p-2 bg-[#121212] border border-gray-700 rounded text-white placeholder-white focus:border-blue-500 focus:outline-none text-sm"
       />
     </div>
   );
