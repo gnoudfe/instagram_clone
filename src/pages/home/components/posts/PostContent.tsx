@@ -51,16 +51,11 @@ const PostContent = () => {
               translateX: "-50%",
               translateY: "-50%",
             }}
-            initial={{ opacity: 0, scale: 0.5 }}
             animate={{
               rotate: [-60, -50, -40, -30, -20, -10, 0, 10, 20],
               scale: [0, 1.2, 1],
               opacity: [0, 1, 1],
               y: [0, 0, -heart.positionY - 120],
-            }}
-            transition={{
-              duration: 0.6,
-              ease: "easeIn",
             }}
             exit={{ scale: 0, opacity: 0 }}
             className="absolute top-1/2 left-1/2 transform "

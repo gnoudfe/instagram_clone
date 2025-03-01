@@ -21,14 +21,11 @@ const LikeButton = ({ isLike = false, handleLike }: LikeButtonProps) => {
       </div>
       {isLike && (
         <motion.div
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 500,
-            damping: 15,
-          }}
+          animate={{ scale: [0.5, 1.2, 1], opacity: 1 }}
           className="absolute top-0 right-0"
+          transition={{
+            duration: 0.4,
+          }}
         >
           <LikedIcon />
         </motion.div>
