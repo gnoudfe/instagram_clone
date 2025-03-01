@@ -1,5 +1,6 @@
 "use client";
 import LikeButton from "@/components/common/LikeButton/LikeButton";
+import SavedButton from "@/components/common/SavedButton/SavedButton";
 import CommentIcon from "@/components/icons/Comment/CommentIcon";
 import SaveIcon from "@/components/icons/Save/SaveIcon";
 
@@ -7,9 +8,13 @@ import React, { useState } from "react";
 
 const PostActions = () => {
   const [isLike, setIsLike] = useState(false);
-
+  const [isSaved, setIsSaved] = useState(false);
   const handleLike = (): void => {
     setIsLike(!isLike);
+  };
+
+  const handleSavePost = (): void => {
+    setIsSaved(!isSaved);
   };
 
   return (
@@ -20,9 +25,7 @@ const PostActions = () => {
           <CommentIcon />
         </div>
       </div>
-      <div className="cursor-pointer hover:opacity-80">
-        <SaveIcon />
-      </div>
+      <SavedButton isSaved={isSaved} handleSavePost={handleSavePost} />
     </div>
   );
 };

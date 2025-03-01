@@ -1,4 +1,4 @@
-import { MoreHorizontal } from "lucide-react";
+import MoreOptions from "@/components/icons/MoreOptions/MoreOptions";
 import React from "react";
 
 const PostHeader = () => {
@@ -15,7 +15,7 @@ const PostHeader = () => {
         <span className="text-sm font-medium  text-zinc-400">24m</span>
       </div>
 
-      <MoreHorizontal />
+      <MoreOptions className="cursor-pointer hover:opacity-80" />
     </div>
   );
 };
