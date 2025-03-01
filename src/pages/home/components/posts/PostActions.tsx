@@ -1,40 +1,28 @@
 "use client";
-import React from "react";
+import LikeButton from "@/components/common/LikeButton/LikeButton";
+import CommentIcon from "@/components/icons/Comment/CommentIcon";
+import SaveIcon from "@/components/icons/Save/SaveIcon";
+
+import React, { useState } from "react";
 
 const PostActions = () => {
-  // const [likes, setLikes] = useState(likeCount);
-  // const [isLiked, setIsLiked] = useState(initialLiked);
+  const [isLike, setIsLike] = useState(false);
 
-  // const handleLike = () => {
-  //   if (isLiked) {
-  //     setLikes(likes - 1);
-  //   } else {
-  //     setLikes(likes + 1);
-  //   }
-  //   setIsLiked(!isLiked);
-  // };
+  const handleLike = (): void => {
+    setIsLike(!isLike);
+  };
 
   return (
-    <div className="flex flex-row gap-4 items-center">
-      Like
-      <svg
-        aria-label="Comment"
-        className="x1lliihq x1n2onr6 x5n08af"
-        fill="currentColor"
-        height="24"
-        role="img"
-        viewBox="0 0 24 24"
-        width="24"
-      >
-        <title>Comment</title>
-        <path
-          d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z"
-          fill="none"
-          stroke="currentColor"
-          strokeLinejoin="round"
-          strokeWidth="2"
-        ></path>
-      </svg>
+    <div className="flex flex-row justify-between mt-1">
+      <div className="flex gap-4 items-center">
+        <LikeButton isLike={isLike} handleLike={handleLike} />
+        <div className="cursor-pointer  hover:opacity-80">
+          <CommentIcon />
+        </div>
+      </div>
+      <div className="cursor-pointer hover:opacity-80">
+        <SaveIcon />
+      </div>
     </div>
   );
 };
