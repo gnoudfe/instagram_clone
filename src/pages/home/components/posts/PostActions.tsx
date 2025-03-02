@@ -2,7 +2,6 @@
 import LikeButton from "@/components/common/LikeButton/LikeButton";
 import SavedButton from "@/components/common/SavedButton/SavedButton";
 import CommentIcon from "@/components/icons/Comment/CommentIcon";
-import SaveIcon from "@/components/icons/Save/SaveIcon";
 
 import React, { useState } from "react";
 

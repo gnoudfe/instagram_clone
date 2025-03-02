@@ -7,7 +7,7 @@ import PostComment from "./PostComment";
 
 const PostLayout = () => {
   return (
-    <div className="border-b border-gray-200 mb-4 w- full flex flex-col gap-2">
+    <div className="border-b border-gray-200 mb-4 pb-6 w-full flex flex-col gap-2">
       <PostHeader />
       <PostContent />
       <PostActions />

@@ -57,7 +57,9 @@ const PostContent = () => {
               opacity: [0, 1, 1],
               y: [0, 0, -heart.positionY - 120],
             }}
-    
+            transition={{
+              duration: 0.5,
+            }}
             exit={{ scale: 0, opacity: 0 }}
             className="absolute top-1/2 left-1/2 transform "
           >
