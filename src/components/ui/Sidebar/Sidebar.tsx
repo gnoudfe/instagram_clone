@@ -1,4 +1,6 @@
 import { dancingScript } from "@/assets/fonts/fonts";
+import Explore from "@/components/icons/Explore/Explore";
+import NewPostIcon from "@/components/icons/NewPost/NewPostIcon";
 import { BellIcon, HomeIcon, MenuIcon, Search } from "lucide-react";
 import React from "react";
 
@@ -10,13 +12,23 @@ const sidebarItems = [
   },
   {
     id: 2,
-    name: "Explore",
+    name: "Search",
     icon: <Search />,
   },
   {
     id: 3,
+    name: "Explore",
+    icon: <Explore />,
+  },
+  {
+    id: 4,
     name: "Notifications",
     icon: <BellIcon />,
+  },
+  {
+    id: 5,
+    name: "Create",
+    icon: <NewPostIcon />,
   },
 ];
 
