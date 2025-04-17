@@ -16,4 +16,5 @@ export interface InputProps {
   placeholder?: string;
   required?: boolean;
   label?: string;
+  isTransparent?: boolean;
 }

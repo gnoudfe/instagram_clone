@@ -11,6 +11,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   required = false,
   label,
+  isTransparent = false,
 }) => {
   return (
     <div className="w-full">
@@ -28,7 +29,11 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         required={required}
         onBlur={onBlur}
-        className="w-full p-2 bg-[#121212] border border-gray-700 rounded text-white placeholder-white focus:border-blue-500 focus:outline-none text-sm"
+        className={
+          isTransparent
+            ? "w-full p-2 text-white placeholder-white focus:outline-none text-sm bg-transparent border-none outline-none"
+            : "w-full p-2 bg-[#121212] border border-gray-700 rounded text-white placeholder-white focus:border-blue-500 focus:outline-none text-sm"
+        }
       />
     </div>
   );

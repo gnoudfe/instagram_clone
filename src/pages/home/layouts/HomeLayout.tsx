@@ -5,7 +5,7 @@ import AccountLayout from "../components/account/AccountLayout";
 
 const HomeLayout = () => {
   return (
-    <div className="mt-4 w-[84%] flex pl-[300px] gap-32">
+    <div className="mt-4 w-[100%] items-center justify-center flex pl-[310px] gap-32">
       <div className="max-w-[630px]  w-full flex flex-col gap-10">
         <StoryLayout />
         <div className="w-full px-16">
