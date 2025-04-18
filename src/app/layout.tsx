@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/globals.css";
 import MainProvider from "@/providers/MainProvider";
+import { ModalPostProvider } from "@/context/ModalPostContext";
+import ModalPost from "@/components/ui/ModalPost/ModalPost";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MainProvider>{children}</MainProvider>
+        <ModalPostProvider>
+          <MainProvider>
+            {children}
+            <ModalPost />
+          </MainProvider>
+        </ModalPostProvider>
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+"use client";
 import Comments from "@/components/common/Comments/Comments";
 import Input from "@/components/common/Input";
 import React from "react";
@@ -51,7 +52,13 @@ const PostModalContentActions = () => {
   );
 };
 
-const PostModalContent = () => {
+const PostModalContent = ({
+  showOptionsModal,
+  setShowOptionsModal,
+}: {
+  showOptionsModal: boolean;
+  setShowOptionsModal: (show: boolean) => void;
+}) => {
   return (
     <div className="w-full flex flex-col justify-between h-full">
       <div>
@@ -64,7 +71,9 @@ const PostModalContent = () => {
             />
             <span className="text-sm font-normal">Duongg</span>
           </div>
-          <PostModalContentSettingsOpiton />
+          <div onClick={() => setShowOptionsModal(!showOptionsModal)}>
+            <PostModalContentSettingsOpiton />
+          </div>
         </div>
         <PostModalContentSeperate />
 

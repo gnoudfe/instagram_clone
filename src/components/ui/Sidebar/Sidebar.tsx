@@ -1,9 +1,12 @@
+"use client";
 import { dancingScript } from "@/assets/fonts/fonts";
 import Explore from "@/components/icons/Explore/Explore";
 import NewPostIcon from "@/components/icons/NewPost/NewPostIcon";
+import { usePostModal } from "@/context/ModalPostContext";
 import { BellIcon, HomeIcon, MenuIcon, Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import SidebarItem from "./SidebarItem";
 
 const sidebarItems = [
   {
@@ -26,30 +29,27 @@ const sidebarItems = [
     name: "Notifications",
     icon: <BellIcon />,
   },
-  {
-    id: 5,
-    name: "Create",
-    icon: <NewPostIcon />,
-  },
 ];
 
 const Sidebar = () => {
+  const { openModal } = usePostModal();
   return (
     <div className="w-[16%] flex flex-col justify-between fixed h-full py-4 px-3  border-r border-gray-600">
       <div>
-        <h2 className={` py-7 px-3 text-3xl  ${dancingScript.className}`}>
-          Instagram
-        </h2>
+        <Link href="/">
+          <h2 className={` py-7 px-3 text-3xl  ${dancingScript.className}`}>
+            Instagram
+          </h2>
+        </Link>
         <ul className="flex w-full flex-col items-start  gap-4">
           {sidebarItems.map((item) => (
-            <li
-              key={item.id}
-              className="flex w-full items-center gap-5 cursor-pointer py-2 px-3 rounded-lg hover:bg-zinc-800 transition-all duration-200"
-            >
-              {item.icon}
-              <span className=" text-white text-base">{item.name}</span>
-            </li>
+            <SidebarItem key={item.id} icon={item.icon} name={item.name} />
           ))}
+          <SidebarItem
+            icon={<NewPostIcon />}
+            name="Create"
+            onClick={() => openModal()}
+          />
 
           <Link href={"/profile"} className="w-full">
             <li className="flex w-full items-center gap-5 cursor-pointer py-2 px-3 rounded-lg hover:bg-zinc-800 transition-all duration-200">
