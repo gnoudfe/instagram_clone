@@ -5,6 +5,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { validateField } from "@/utils/validateField";
 import { Credentials } from "../../types/type";
+import { useLoginMutation } from "@/services/queries/useAuth";
+import { useRouter } from "next/navigation";
+import { useGlobalStore } from "@/stores/authState";
 
 type Errors = Partial<Record<keyof Credentials, string>>;
 
@@ -13,10 +16,20 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+  const { setIsLoggedIn, setUserData } = useGlobalStore();
 
   const [errors, setErrors] = useState<Errors>({});
+  const [loading, setLoading] = useState(false);
+  const [responseError, setResponseError] = useState("");
+  const [responseSuccess, setResponseSuccess] = useState("");
+
+  const router = useRouter();
+
+  const loginMutation = useLoginMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResponseError("");
+    setResponseSuccess("");
     const { name, value } = e.target;
     setCredentials((prev) => ({ ...prev, [name]: value }));
     const error = validateField(name as keyof Credentials, value);
@@ -25,6 +38,9 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setResponseError("");
+    setResponseSuccess("");
+    if (loading) return;
     const validationErros: Errors = {};
     Object.keys(credentials).forEach((key) => {
       const field = key as keyof Credentials;
@@ -37,9 +53,25 @@ const LoginForm = () => {
     }
 
     try {
-      console.log("Logging in with:", credentials);
+      setLoading(true);
+
+      const response = await loginMutation.mutateAsync({
+        email: credentials.email,
+        password: credentials.password,
+      });
+      if (response.status === "success") {
+        console.log(response);
+        setIsLoggedIn(true);
+        setUserData(response.data);
+        router.push("/");
+      } else {
+        setResponseError(response.message);
+        setResponseSuccess("");
+      }
     } catch (error) {
       console.error("Login failed:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,7 +95,12 @@ const LoginForm = () => {
       {errors.password && (
         <p className="text-sm text-red-500"> {errors.password}</p>
       )}
-
+      {responseError && (
+        <p className="text-sm text-red-500"> {responseError}</p>
+      )}
+      {responseSuccess && (
+        <p className="text-sm text-green-500"> {responseSuccess}</p>
+      )}
       <p className="text-sm text-white text-center">
         Dont have an account yet?{" "}
         <Link href="/sign-up" className="text-slate-500  font-bold">
@@ -78,7 +115,9 @@ const LoginForm = () => {
         Forgot your password?
       </Link>
 
-      <Button type="submit">Sign up</Button>
+      <Button type="submit" disabled={loading}>
+        {loading ? "Loading..." : "Sign In"}
+      </Button>
     </form>
   );
 };

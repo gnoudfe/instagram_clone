@@ -15,7 +15,7 @@ const ImageUpload = ({ onNext, setImagePreviewUrl }: Props) => {
   };
 
   return (
-    <div className="relative z-10 w-full max-w-[660px] h-[660px] rounded-sm flex flex-col">
+    <div className="relative z-10 w-full max-w-[692px] h-[660px] rounded-sm flex flex-col">
       {/* header */}
       <div className="h-[42px] bg-black text-white  flex items-center justify-center font-semibold relative ">
         <span> Create new post</span>

@@ -1,18 +1,22 @@
+"use client";
+
 import UserCard from "@/components/common/UserCard/UserCard";
 import React from "react";
-
-const accountDataMock = {
-  id: 1,
-  avatar:
-    "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg",
-  name: "_gnoud0208",
-  username: "Dai Duong",
-};
+import { useUserInfor } from "@/services/queries/useAuth";
 
 const UserAccount = () => {
+  const { data, isLoading, error } = useUserInfor();
+
+  if (isLoading) {
+    return <div>Loading user info...</div>;
+  }
+  if (error) {
+    return <div>Error loading user info</div>;
+  }
+  if (!data) return null;
   return (
     <div>
-      <UserCard userData={accountDataMock} type="user-account" />
+      <UserCard userData={data?.user} type="user-account" />
     </div>
   );
 };

@@ -1,15 +1,18 @@
 import Button from "@/components/common/Button";
+import { UserDataType } from "@/types/users";
+import Link from "next/link";
 import React from "react";
 interface ProfileInforProps {
   slug: string;
+  userData: UserDataType;
 }
 
-const ProfileInfor = ({ slug }: ProfileInforProps) => {
+const ProfileInfor = ({ slug, userData }: ProfileInforProps) => {
   return (
     <div className="flex gap-[60px] w-full max-w-[935px]  pt-[30px]  items-center">
       <div className="max-w-[150px] max-h-[150px] rounded-full">
         <img
-          src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg"
+          src={userData?.profilePicture || undefined}
           alt=""
           className="w-full h-full object-cover rounded-full"
         />
@@ -22,9 +25,11 @@ const ProfileInfor = ({ slug }: ProfileInforProps) => {
             <Button size="sm" variant="secondary">
               View Archive
             </Button>
-            <Button size="sm" variant="secondary">
-              Edit Profile
-            </Button>
+            <Link href={"/accounts"}>
+              <Button size="sm" variant="secondary">
+                Edit Profile
+              </Button>
+            </Link>
             <div className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,9 +75,7 @@ const ProfileInfor = ({ slug }: ProfileInforProps) => {
           </span>
         </div>
 
-        <span className="text-sm  text-white">
-          Find joy in the little things, work hard, stay humble and be kind
-        </span>
+        <span className="text-sm  text-white">{userData?.bio}</span>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Credentials } from "../../types/types";
 import { validateField } from "@/utils/validateField";
+import { useRegisterMutation } from "@/services/queries/useAuth";
 
 const genders = [
   {
@@ -31,12 +32,18 @@ const RegisterForm = () => {
     dob: "",
     gender: "",
   });
+  const registerMutation = useRegisterMutation();
 
   const [errors, setErrors] = useState<Errors>({});
+  const [loading, setLoading] = useState(false);
+  const [responseError, setResponseError] = useState("");
+  const [responseSuccess, setResponseSuccess] = useState("");
 
   const [showGender, setShowGender] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResponseError("");
+    setResponseSuccess("");
     const { name, value } = e.target;
     setCredentials((prev) => ({ ...prev, [name]: value }));
     const error = validateField(name as keyof Credentials, value);
@@ -45,6 +52,9 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setResponseError("");
+    setResponseSuccess("");
+    if(loading) return;
     const validationErros: Errors = {};
     Object.keys(credentials).forEach((key) => {
       const field = key as keyof Credentials;
@@ -57,9 +67,25 @@ const RegisterForm = () => {
     }
 
     try {
-      console.log("Logging in with:", credentials);
+      setLoading(true);
+      const response = await registerMutation.mutateAsync({
+        username: credentials.username,
+        email: credentials.email,
+        password: credentials.password,
+        dateOfBirth: credentials.dob,
+        gender: credentials.gender,
+      });
+      if (response.status === "success") {
+        setResponseSuccess(response.message);
+        setResponseError("");
+      } else {
+        setResponseError(response.message);
+        setResponseSuccess("");
+      }
     } catch (error) {
       console.error("Login failed:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -131,8 +157,13 @@ const RegisterForm = () => {
           Log in
         </Link>
       </p>
-
-      <Button type="submit">Sign up</Button>
+      {responseError && (
+        <p className="text-sm text-red-500"> {responseError}</p>
+      )}
+      {responseSuccess && (
+        <p className="text-sm text-green-500"> {responseSuccess}</p>
+      )}
+      <Button type="submit" disabled={loading}>{loading ? "Loading..." : "Sign up"}</Button>
     </form>
   );
 };
