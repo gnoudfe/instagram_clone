@@ -73,6 +73,25 @@ class UserSocialsApiRequest {
       },
     });
   }
+
+  public deleteProfilePicture(): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.CHANGE_PROFILE_PICTURE,
+      config: {
+        method: "DELETE",
+      },
+    });
+  }
+
+  public UpdateBio(bio: string): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.UPDATE_BIO,
+      config: {
+        method: "PUT",
+        body: { bio },
+      },
+    });
+  }
 }
 
 const UserSocialsApi = new UserSocialsApiRequest();

@@ -18,7 +18,10 @@ const EditAvatar = ({ userData }: EditAvatarProps) => {
         <div className="flex gap-3 items-center justify-between">
           <div className="flex gap-3 items-center">
             <img
-              src={userData?.profilePicture || undefined}
+              src={
+                userData?.profilePicture ||
+                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+              }
               alt=""
               className="w-[60px] h-[60px] object-cover rounded-full"
             />

@@ -7,6 +7,8 @@ export type UserDataType = {
   isVerified: boolean;
   bio: string;
   profilePicture: string | null;
+  totalPosts: number;
+  totalFriends: number;
   coverPhoto: string;
   friends: string[];
   friendRequests: string[];

@@ -82,7 +82,7 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
       <div className="flex h-full">
         <div className="max-w-[692px]  bg-neutral-800">
           <img
-            src={finalImage || ""}
+            src={finalImage || undefined}
             alt="finalImage"
             className="w-full h-full object-cover"
           />

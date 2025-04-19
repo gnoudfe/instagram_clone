@@ -13,5 +13,6 @@ export const APP_API_ENDPOINT = {
   },
   USER: {
     CHANGE_PROFILE_PICTURE: "/profile-picture",
+    UPDATE_BIO: "/bio",
   },
 };

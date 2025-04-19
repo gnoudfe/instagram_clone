@@ -23,14 +23,17 @@ const ProfileInfor = ({ slug, userData }: ProfileInforProps) => {
     <>
       <div className="flex gap-[60px] w-full max-w-[935px]  pt-[30px]  items-center">
         <img
-          src={userData?.profilePicture || undefined}
+          src={
+            userData?.profilePicture ||
+            "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+          }
           alt=""
           className="w-[150px] h-[150px] object-cover rounded-full"
         />
 
         <div className="flex flex-col gap-6 pt-[10px]">
           <div className="flex items-center gap-6">
-            <span className="text-2xl font-normal">{slug}</span>
+            <span className="text-2xl font-normal">{userData?.username}</span>
             <div className="flex items-center gap-3">
               <Button size="sm" variant="secondary">
                 View Archive
@@ -75,20 +78,25 @@ const ProfileInfor = ({ slug, userData }: ProfileInforProps) => {
 
           <div className="flex items-center gap-4">
             <span className="text-sm font-normal text-[#A8A8A8]">
-              <span className="text-white font-semibold">0</span> posts
+              <span className="text-white font-semibold">
+                {userData?.totalPosts}
+              </span>{" "}
+              posts
             </span>
             <span className="text-sm font-normal text-[#A8A8A8]">
-              <span className="text-white font-semibold">0</span> followers
-            </span>
-            <span className="text-sm font-normal text-[#A8A8A8]">
-              <span className="text-white font-semibold">0</span> following
+              <span className="text-white font-semibold">
+                {userData?.totalFriends}
+              </span>{" "}
+              followers
             </span>
           </div>
 
           <span className="text-sm  text-white">{userData?.bio}</span>
         </div>
       </div>
-     {isShowModalSettings && <ModalSettings  onClose={handleCloseModalSettings} />}
+      {isShowModalSettings && (
+        <ModalSettings onClose={handleCloseModalSettings} />
+      )}
     </>
   );
 };

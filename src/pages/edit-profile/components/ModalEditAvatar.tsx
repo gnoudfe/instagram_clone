@@ -1,16 +1,20 @@
 "use client";
-import { useChangeProfilePictureMutation } from "@/services/queries/useUser";
+import {
+  useChangeProfilePictureMutation,
+  useDeleteProfilePictureMutation,
+} from "@/services/queries/useUser";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const ModalEditAvatar = ({
   setShowEditAvatarModal,
-  setIsAvatarLoading
+  setIsAvatarLoading,
 }: {
   setShowEditAvatarModal: (show: boolean) => void;
   setIsAvatarLoading: (isLoading: boolean) => void;
 }) => {
   const changeProfilePictureMutation = useChangeProfilePictureMutation();
+  const deleteProfilePictureMutation = useDeleteProfilePictureMutation();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
@@ -45,6 +49,22 @@ const ModalEditAvatar = ({
         setIsLoading(false);
         setIsAvatarLoading(false);
       }
+    }
+  };
+
+  const handleDeleteProfilePicture = async () => {
+    setIsLoading(true);
+    setIsAvatarLoading(true);
+    setErrorMessage(null);
+    try {
+      await deleteProfilePictureMutation.mutateAsync();
+      router.refresh();
+      setShowEditAvatarModal(false);
+    } catch (error) {
+      console.log("error while deleting profile picture", error);
+    } finally {
+      setIsLoading(false);
+      setIsAvatarLoading(false);
     }
   };
 
@@ -107,7 +127,10 @@ const ModalEditAvatar = ({
             disabled={isLoading}
           />
         </label>
-        <div className="w-full flex items-center justify-center p-3 border-neutral-700 border-b rounded-t-lg transition-all duration-300 cursor-pointer hover:bg-neutral-700">
+        <div
+          onClick={handleDeleteProfilePicture}
+          className="w-full flex items-center justify-center p-3 border-neutral-700 border-b rounded-t-lg transition-all duration-300 cursor-pointer hover:bg-neutral-700"
+        >
           <span className="text-red-500">Remove current photo</span>
         </div>
 

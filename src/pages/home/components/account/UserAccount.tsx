@@ -8,7 +8,7 @@ const UserAccount = async () => {
   if (!userInfordata?.user) return null;
   return (
     <div>
-      <UserCard userData={userInfordata?.user} type="user-account" />
+      <UserCard userData={userInfordata?.user} />
     </div>
   );
 };
