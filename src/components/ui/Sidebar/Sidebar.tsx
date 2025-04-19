@@ -7,7 +7,7 @@ import { BellIcon, HomeIcon, MenuIcon, Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import SidebarItem from "./SidebarItem";
-import { useUserInfor } from "@/services/queries/useAuth";
+import { UserDataType } from "@/types/users";
 
 const sidebarItems = [
   {
@@ -32,9 +32,8 @@ const sidebarItems = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ userData }: { userData: UserDataType }) => {
   const { openModal } = usePostModal();
-  const { data } = useUserInfor();
   return (
     <div className="w-[16%] flex flex-col justify-between fixed h-full py-4 px-3  border-r border-gray-600">
       <div>
@@ -52,11 +51,11 @@ const Sidebar = () => {
             name="Create"
             onClick={() => openModal()}
           />
-          {data?.user && (
-            <Link href={`/${data?.user?.username}`} className="w-full">
+          {userData && (
+            <Link href={`/${userData?.username}`} className="w-full">
               <li className="flex w-full items-center gap-5 cursor-pointer py-2 px-3 rounded-lg hover:bg-zinc-800 transition-all duration-200">
                 <img
-                  src={data?.user?.profilePicture || undefined}
+                  src={userData?.profilePicture || undefined}
                   alt="avatar profile"
                   className="w-6 h-6 rounded-full object-cover"
                 />

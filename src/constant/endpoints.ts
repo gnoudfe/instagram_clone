@@ -9,5 +9,9 @@ export const APP_API_ENDPOINT = {
     REGISTER: "/register",
     VERIFY_EMAIL: "/verify-email",
     GET_USER_INFOR: "/user-me",
+    LOGOUT: "/logout",
+  },
+  USER: {
+    CHANGE_PROFILE_PICTURE: "/profile-picture",
   },
 };

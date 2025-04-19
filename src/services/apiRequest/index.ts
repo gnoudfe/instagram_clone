@@ -52,8 +52,31 @@ class AuthSocialsApiRequest {
       isServer,
     });
   }
+
+  public Logout(): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.AUTH.LOGOUT,
+      config: {
+        method: "POST",
+      },
+    });
+  }
 }
+
+class UserSocialsApiRequest {
+  public ChangeProfilePicture(formData: FormData): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.CHANGE_PROFILE_PICTURE,
+      config: {
+        method: "PUT",
+        body: formData,
+      },
+    });
+  }
+}
+
+const UserSocialsApi = new UserSocialsApiRequest();
 
 const AuthScoialsApi = new AuthSocialsApiRequest();
 
-export { AuthScoialsApi };
+export { AuthScoialsApi, UserSocialsApi };

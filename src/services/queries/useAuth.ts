@@ -36,3 +36,9 @@ export const useUserInfor = () => {
     },
   });
 };
+
+export const useLogoutMutation = () => {
+  return useMutation({
+    mutationFn: () => AuthScoialsApi.Logout(),
+  });
+};
