@@ -7,7 +7,6 @@ import { validateField } from "@/utils/validateField";
 import { Credentials } from "../../types/type";
 import { useLoginMutation } from "@/services/queries/useAuth";
 import { useRouter } from "next/navigation";
-import { useGlobalStore } from "@/stores/authState";
 
 type Errors = Partial<Record<keyof Credentials, string>>;
 
@@ -16,7 +15,6 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const { setIsLoggedIn, setUserData } = useGlobalStore();
 
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
@@ -60,9 +58,6 @@ const LoginForm = () => {
         password: credentials.password,
       });
       if (response.status === "success") {
-        console.log(response);
-        setIsLoggedIn(true);
-        setUserData(response.data);
         router.push("/");
       } else {
         setResponseError(response.message);

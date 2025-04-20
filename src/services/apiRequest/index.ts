@@ -74,6 +74,51 @@ class UserSocialsApiRequest {
     });
   }
 
+  public GetUserInforById({
+    cookie,
+    isServer = false,
+    userId,
+  }: {
+    cookie?: string;
+    isServer?: boolean;
+    userId: string;
+  }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.GET_USER_BY_ID(userId),
+      config: {
+        method: "GET",
+        headers: cookie ? { Cookie: cookie } : {},
+      },
+      isServer,
+    });
+  }
+  public sendFriendRequest({ userId }: { userId: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.SEND_FRIEND_REQUEST(userId),
+      config: {
+        method: "POST",
+      },
+    });
+  }
+
+  public searchUsers({ keyword }: { keyword: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.SEARCH_USER(keyword),
+      config: {
+        method: "GET",
+      },
+    });
+  }
+
+  public getNotifications(): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.GET_NOTIFICATIONS,
+      config: {
+        method: "GET",
+      },
+    }); 
+  }
+
   public deleteProfilePicture(): Promise<any> {
     return apiBaseServiceInstance.Http({
       path: APP_API_ENDPOINT.USER.CHANGE_PROFILE_PICTURE,

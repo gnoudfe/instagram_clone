@@ -2,12 +2,13 @@
 import { dancingScript } from "@/assets/fonts/fonts";
 import NewPostIcon from "@/components/icons/NewPost/NewPostIcon";
 import { usePostModal } from "@/context/ModalPostContext";
-import { HomeIcon, MenuIcon, SearchIcon } from "lucide-react";
+import {HeartIcon, HomeIcon, MenuIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import SidebarItem from "./SidebarItem";
 import { UserDataType } from "@/types/users";
 import SearchUser from "../SearchUser/SearchUser";
+import { useGetNotifications } from "@/services/queries/useUser";
 
 const Sidebar = ({ userData }: { userData: UserDataType }) => {
   const { openModal } = usePostModal();
@@ -21,6 +22,8 @@ const Sidebar = ({ userData }: { userData: UserDataType }) => {
   const handleCloseSearchUser = () => {
     setShowSearchUser(false);
   };
+
+  const { data } = useGetNotifications()
 
   return (
     <>
@@ -47,12 +50,18 @@ const Sidebar = ({ userData }: { userData: UserDataType }) => {
               onClick={() => openModal()}
             />
             <SidebarItem
+              icon={<HeartIcon />}
+              name="Notifications"
+       
+            />
+
+            <SidebarItem
               icon={<SearchIcon />}
               name="Search"
               onClick={() => handleShowSearchUser()}
             />
             {userData && (
-              <Link href={`/${userData?.username}`} className="w-full">
+              <Link href={`/${userData?._id}`} className="w-full">
                 <li className="flex w-full items-center gap-5 cursor-pointer py-2 px-3 rounded-lg hover:bg-zinc-800 transition-all duration-200">
                   <img
                     src={
@@ -74,7 +83,13 @@ const Sidebar = ({ userData }: { userData: UserDataType }) => {
           <span className=" text-white text-base">More</span>
         </div>
       </div>
-      <SearchUser onClose={handleCloseSearchUser} searchUser={showSearchUser} />
+      {showSearchUser && (
+        <SearchUser
+          onClose={handleCloseSearchUser}
+          searchUser={showSearchUser}
+          setShowSearchUser={setShowSearchUser}
+        />
+      )}
     </>
   );
 };

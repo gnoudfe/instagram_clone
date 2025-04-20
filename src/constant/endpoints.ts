@@ -14,5 +14,9 @@ export const APP_API_ENDPOINT = {
   USER: {
     CHANGE_PROFILE_PICTURE: "/profile-picture",
     UPDATE_BIO: "/bio",
+    SEARCH_USER: (keyword: string) => `/search-users?keyword=${keyword}`,
+    GET_USER_BY_ID: (userId: string) => `/user/${userId}`,
+    SEND_FRIEND_REQUEST: (userId: string) => `/send-friend-request/${userId}`,
+    GET_NOTIFICATIONS: "/get-notifications",
   },
 };

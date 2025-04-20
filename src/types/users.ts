@@ -21,5 +21,12 @@ export type UserDataType = {
 
 export type UserDataResponse = {
   status: string;
+  isCurrentUser: boolean;
   user: UserDataType;
+  currentUserId: string;
+};
+
+export type userSearchDataResponse = {
+  status: string;
+  users: UserDataType[];
 };
