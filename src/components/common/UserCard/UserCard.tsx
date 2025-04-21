@@ -1,5 +1,4 @@
 import { UserDataType } from "@/types/users";
-import Link from "next/link";
 import React from "react";
 
 interface UserCardProps {
@@ -9,7 +8,7 @@ interface UserCardProps {
 const UserCard = ({ userData }: UserCardProps) => {
   return (
     <div className="flex items-center  w-full justify-between">
-      <Link href={`${userData?._id}`} className="flex items-center gap-3">
+      <div className="flex items-center gap-3">
         <img
           src={
             userData?.profilePicture ||
@@ -21,7 +20,7 @@ const UserCard = ({ userData }: UserCardProps) => {
         <div className="flex flex-col">
           <h4 className="text-sm font-semibold">{userData.username}</h4>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
