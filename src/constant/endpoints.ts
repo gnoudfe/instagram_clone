@@ -1,3 +1,5 @@
+import { buildQueryParams } from "@/utils/buildQueryParams";
+
 export const APP_API_ENDPOINT = {
   ENDPOINT: {
     NEXT_PUBLIC_BASE_URL:
@@ -35,5 +37,10 @@ export const APP_API_ENDPOINT = {
     MY_POSTS: "/posts/my-posts",
     GET_POST_DETAIL: (postId: string) => `/posts/${postId}`,
     GET_OTHER_USER_POSTS: (userId: string) => `/posts/user/${userId}`,
+    GET_POST_FEED: (limit: number | null, offset: number | null) => {
+      const queryParams = buildQueryParams({ limit, offset });
+      return `/posts-feed${queryParams ? `?${queryParams}` : ""}`;
+    },
+    DELETE_POST: (postId: string) => `/posts/${postId}`,
   },
 };

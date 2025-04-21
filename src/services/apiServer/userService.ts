@@ -30,6 +30,7 @@ export async function GetUserPosts() {
   return response;
 }
 
+
 export async function GetOtherUserPosts({ userId }: { userId: string }) {
   const { cookieHeader } = await getServerCookies();
   const response = await PostSocialsApi.GetOtherUserPosts({

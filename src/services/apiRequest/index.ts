@@ -1,5 +1,6 @@
 import { APP_API_ENDPOINT } from "@/constant/endpoints";
 import { apiBaseServiceInstance } from "../api";
+import { PostFeedDataResponse } from "@/types/users";
 
 class AuthSocialsApiRequest {
   public Login({
@@ -237,11 +238,41 @@ class PostSocialsApiRequest {
     });
   }
 
+  public getPostFeed({
+    cookie,
+    isServer = false,
+    limit = 4,
+    offset = 0,
+  }: {
+    cookie?: string | null;
+    isServer?: boolean;
+    limit?: number | null;
+    offset?: number | null;
+  }): Promise<PostFeedDataResponse> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.POSTS.GET_POST_FEED(limit, offset),
+      config: {
+        method: "GET",
+        headers: cookie ? { Cookie: cookie } : {},
+      },
+      isServer,
+    });
+  }
+
   public getPostDetail({ postId }: { postId: string }): Promise<any> {
     return apiBaseServiceInstance.Http({
       path: APP_API_ENDPOINT.POSTS.GET_POST_DETAIL(postId),
       config: {
         method: "GET",
+      },
+    });
+  }
+
+  public deletePost({ postId }: { postId: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.POSTS.DELETE_POST(postId),
+      config: {
+        method: "DELETE",
       },
     });
   }

@@ -103,3 +103,10 @@ export type PostDetailDataResponse = {
   currentUserId: string;
   post: Postdata;
 };
+
+export type PostFeedDataResponse = {
+  status: string;
+  totals: number;
+  currentUserId: string;
+  posts: Postdata[];
+};

@@ -9,7 +9,7 @@ interface HeartsType {
   positionY: number;
 }
 
-const PostContent = () => {
+const PostContent = ({ postContent }: { postContent: string[] }) => {
   const [hearts, setHearts] = useState<HeartsType[]>([]);
 
   const handleLikePost = (e: React.MouseEvent) => {
@@ -36,7 +36,7 @@ const PostContent = () => {
       onDoubleClick={handleLikePost}
     >
       <img
-        src="https://data.designervn.net/2020/10/12608_8040b633df346bd3f1379ddb90490a64.png"
+        src={postContent[0]}
         alt=""
         className="w-full h-full object-contain  border border-zinc-500 rounded-sm  "
       />

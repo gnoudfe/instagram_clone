@@ -6,6 +6,7 @@ import ImageCrop from "./ImageCrop";
 import ImageFilter from "./ImageFilter";
 import ImageContent from "./ImageContent";
 import ModalAlert from "./ModalAlert";
+import MultiImageCrop from "./ImageCrop";
 
 const ModalPost = () => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -61,7 +62,7 @@ const ModalPost = () => {
           />
         )}
         {step === 2 && imagePreviewUrl && (
-          <ImageCrop
+          <MultiImageCrop
             imagePreviewUrl={imagePreviewUrl}
             setCroppedFile={setCroppedFile}
             onNext={handleNext}

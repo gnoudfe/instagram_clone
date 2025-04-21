@@ -1,45 +1,90 @@
+"use client";
 import getCroppedImg from "@/utils/cropImage";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Cropper from "react-easy-crop";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 type ImageCropProps = {
-  imagePreviewUrl: string;
-  setCroppedFile: (file: File) => void;
-  onNext: () => void;
+  imagePreviewUrls: string[];
+  onNext: (croppedFiles: File[]) => void;
   onBack: () => void;
 };
 
-const ImageCrop = ({
-  imagePreviewUrl,
-  setCroppedFile,
+const imagePreviewUrlsTests = [
+  "https://res.cloudinary.com/dwo7uuloy/image/upload/v1745249342/social-media-posts/vdc0d4x5pw2ren5qbfbe.png",
+  "https://res.cloudinary.com/dwo7uuloy/image/upload/v1745243472/social-media-posts/gcf2nxgjtck0gpxwxs5r.png",
+];
+
+const MultiImageCrop = ({
+  imagePreviewUrls,
   onNext,
   onBack,
 }: ImageCropProps) => {
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cropStates, setCropStates] = useState(
+    imagePreviewUrlsTests.map(() => ({
+      crop: { x: 0, y: 0 },
+      zoom: 1,
+      croppedAreaPixels: null,
+    }))
+  );
 
-  const onCropComplete = (_: any, croppedAreaPixels: any) => {
-    setCroppedAreaPixels(croppedAreaPixels);
+  const onCropChange = (crop: any) => {
+    const newStates = [...cropStates];
+    newStates[currentIndex].crop = crop;
+    setCropStates(newStates);
   };
+
+  const onZoomChange = (zoom: number) => {
+    const newStates = [...cropStates];
+    newStates[currentIndex].zoom = zoom;
+    setCropStates(newStates);
+  };
+
+  const onCropComplete = useCallback(
+    (_: any, croppedAreaPixels: any) => {
+      const newStates = [...cropStates];
+      newStates[currentIndex].croppedAreaPixels = croppedAreaPixels;
+      setCropStates(newStates);
+    },
+    [cropStates, currentIndex]
+  );
 
   const handleCropConfirm = async () => {
-    if (!imagePreviewUrl || !croppedAreaPixels) return;
+    const croppedFiles: File[] = [];
 
-    try {
-      const croppedFile = await getCroppedImg(
-        imagePreviewUrl,
-        croppedAreaPixels
-      );
-      setCroppedFile(croppedFile); 
-      onNext();
-    } catch (error) {
-      console.error("Failed to crop image:", error);
+    for (let i = 0; i < imagePreviewUrlsTests.length; i++) {
+      const { croppedAreaPixels } = cropStates[i];
+
+      if (croppedAreaPixels) {
+        const cropped = await getCroppedImg(
+          imagePreviewUrlsTests[i],
+          croppedAreaPixels,
+          `crop-image${[i]}`
+        );
+        croppedFiles.push(cropped);
+      } else {
+        try {
+          const res = await fetch(imagePreviewUrlsTests[i]);
+          const blob = await res.blob();
+          const originalFile = new File([blob], `original-image-${i}.jpg`, {
+            type: blob.type,
+          });
+          croppedFiles.push(originalFile);
+        } catch (error) {
+          console.error(`Error handling original image at index ${i}:`, error);
+        }
+      }
     }
+    console.log("cropFiles",croppedFiles)
+
+    onNext(croppedFiles);
   };
+
   return (
-    <div className="relative z-10 w-[692px] h-[692px] rounded-sm flex flex-col  animate-fade-in">
-      {/* header */}
+    <div className="relative w-[700px] h-[700px] flex flex-col rounded bg-neutral-900 text-white animate-fade-in">
+      {/* Header */}
       <div className="h-[42px] bg-black text-white text-sm  z-20 flex items-center  justify-center font-semibold relative ">
         <button className="absolute left-5" onClick={onBack}>
           Back
@@ -52,19 +97,45 @@ const ImageCrop = ({
           Next
         </button>
       </div>
-      <div className="w-full h-full flex flex-col gap-2 items-center justify-center bg-neutral-800 cursor-pointer">
-        <Cropper
-          image={imagePreviewUrl}
-          crop={crop}
-          aspect={1}
-          zoom={zoom}
-          onCropChange={setCrop}
-          onZoomChange={setZoom}
-          onCropComplete={onCropComplete}
-        />
+
+      {/* Swiper */}
+      <div className="flex-1 relative">
+        <Swiper
+          onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
+          spaceBetween={10}
+          slidesPerView={1}
+          allowTouchMove={false}
+        >
+          {imagePreviewUrlsTests.map((url, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative w-full h-[700px] bg-neutral-800">
+                <Cropper
+                  image={url}
+                  crop={cropStates[index].crop}
+                  zoom={cropStates[index].zoom}
+                  aspect={4 / 5} // Instagram post ratio
+                  onCropChange={onCropChange}
+                  onZoomChange={onZoomChange}
+                  onCropComplete={onCropComplete}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
+
+      {/* Zoom Slider */}
+      {/* <div className="px-6 py-4">
+        <Slider
+          min={1}
+          max={3}
+          step={0.1}
+          value={cropStates[currentIndex]?.zoom || 1}
+          onChange={(_, zoom) => onZoomChange(zoom as number)}
+        />
+      </div> */}
     </div>
   );
 };
 
-export default ImageCrop;
+export default MultiImageCrop;
