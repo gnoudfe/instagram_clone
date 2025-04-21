@@ -3,10 +3,14 @@ import React, { useState } from "react";
 import PostModalContent from "../components/post_modal_content/PostModalContent";
 import { useRouter } from "next/navigation";
 import ModalOptionsPosts from "@/components/ui/ModalOptionsPosts/ModalOptionsPosts";
+import { useGetPostDetail } from "@/services/queries/usePost";
+import { PostDetailDataResponse } from "@/types/users";
 
-const PostProfileModalLayout = () => {
+const PostProfileModalLayout = ({ postId }: { postId: string }) => {
   const router = useRouter();
   const [showOptionsModal, setShowOptionsModal] = useState(false);
+
+  const { data } = useGetPostDetail({postId : postId});
 
   const closeModal = () => {
     router.back();
@@ -22,18 +26,24 @@ const PostProfileModalLayout = () => {
           <div className="relative z-50 rounded-lg w-full h-full pt-10 pb-10 flex max-w-[70%]">
             <div className=" w-[55%] ">
               <img
-                src="https://i.ytimg.com/vi/v9XyIGXcRck/maxresdefault.jpg"
+                src={data?.post?.images[0]}
                 alt=""
                 className="w-full h-full object-cover"
               />
             </div>
             <div className=" w-[45%] bg-black">
-              <PostModalContent showOptionsModal={showOptionsModal} setShowOptionsModal={setShowOptionsModal}/>
+              <PostModalContent
+                showOptionsModal={showOptionsModal}
+                setShowOptionsModal={setShowOptionsModal}
+                postData={data as PostDetailDataResponse}
+              />
             </div>
           </div>
         </div>
       </div>
-      {showOptionsModal && <ModalOptionsPosts  setShowOptionsModal={setShowOptionsModal}/>}
+      {showOptionsModal && (
+        <ModalOptionsPosts setShowOptionsModal={setShowOptionsModal} />
+      )}
     </>
   );
 };

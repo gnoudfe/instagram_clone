@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import Spinner from "@/components/common/Loading/Spinner";
+import { usePostModal } from "@/context/ModalPostContext";
+import { useUserInfor } from "@/services/queries/useAuth";
+import { useCreatePostMutation } from "@/services/queries/usePost";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 const Visiblity = [
   {
@@ -15,46 +21,61 @@ const Visiblity = [
   },
 ];
 
-const ImagePreview = ({ file }: { file: File }) => {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-
-      // Clean up khi component unmount hoặc file thay đổi
-      return () => URL.revokeObjectURL(url);
-    }
-  }, [file]);
-
-  if (!previewUrl) return null;
-
-  return (
-    <div className="mt-4">
-      <img
-        src={previewUrl}
-        alt="Preview"
-        className="max-w-full h-auto rounded"
-      />
-    </div>
-  );
-};
-
 interface ImageContentProps {
   finalImage: string | null;
   finalFile: File | null;
 }
 
 const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
+  const { confirmCloseModal } = usePostModal();
   const [showVisiblity, setShowVisiblity] = React.useState(false);
-  // Thành
+  const [content, setContent] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
   const [currentVisiblity, setCurrentVisiblity] = React.useState(
     Visiblity[0].value
   );
 
-  const handlePost = () => {
-    console.log("finalFile", finalFile);
+  const { data } = useUserInfor();
+  console.log("data", data);
+  const router = useRouter();
+
+  const createPostMutation = useCreatePostMutation();
+
+  const handlePost = async () => {
+    if (!content.trim()) {
+      setErrorMessage("Content cannot be empty.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("images", finalFile!);
+    formData.append("content", content);
+    formData.append("visibility", currentVisiblity);
+
+    try {
+      setIsLoading(true);
+      setErrorMessage(""); // Reset error message before new request
+      const response = await createPostMutation.mutateAsync(formData);
+      console.log(response); // Handle the response as needed
+      if (response.status === "success") {
+        confirmCloseModal();
+        router.refresh();
+      } else if (response.message) {
+        setErrorMessage(response.message);
+      }
+    } catch (error: any) {
+      console.log("error while posting", error);
+      // Extract error message from API response if available
+      if (error.response?.data?.message) {
+        setErrorMessage(error.response.data.message);
+      } else if (error.message) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("Đã xảy ra lỗi khi đăng bài. Vui lòng thử lại sau.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleShowVisiblity = () => {
@@ -75,9 +96,14 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
           className="text-sm absolute right-5 text-blue-700 cursor-pointer"
           onClick={handlePost}
         >
-          Share
+          {isLoading ? <Spinner /> : "Share"}
         </span>
       </div>
+      {errorMessage && (
+        <div className="absolute top-[42px] left-0 right-0 bg-red-500 text-white text-sm py-2 px-4 text-center animate-fade-in">
+          {errorMessage}
+        </div>
+      )}
       {/* content */}
       <div className="flex h-full">
         <div className="max-w-[692px]  bg-neutral-800">
@@ -90,18 +116,21 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
         <div className="flex-1 bg-neutral-900 h-full">
           <div className="flex items-center gap-2 p-5">
             <img
-              src="https://i.ytimg.com/vi/v9XyIGXcRck/maxresdefault.jpg"
+              src={
+                data?.user?.profilePicture ||
+                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+              }
               alt=""
               className="w-[28px] h-[28px] object-cover rounded-full"
             />
-            <span className="text-sm text-white ">duongg</span>
+            <span className="text-sm text-white ">{data?.user?.username}</span>
           </div>
           <textarea
-            placeholder="What's on your mind?"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder={`What's on your mind ${data?.user?.username}?`}
             maxLength={300}
             autoFocus
-            name=""
-            id=""
             className="w-full h-full p-5 bg-transparent text-white border-none outline-none max-h-[200px]  overflow-hidden resize-none"
           ></textarea>
 

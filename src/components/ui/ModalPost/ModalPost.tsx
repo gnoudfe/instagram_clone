@@ -10,8 +10,15 @@ import ModalAlert from "./ModalAlert";
 const ModalPost = () => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [croppedFile, setCroppedFile] = useState<File | null>(null);
-  const { isOpen, closeModal, step, handleNext, handleBack, showAlertModal, confirmCloseModal } =
-    usePostModal();
+  const {
+    isOpen,
+    closeModal,
+    step,
+    handleNext,
+    handleBack,
+    showAlertModal,
+    confirmCloseModal,
+  } = usePostModal();
   const [finalImage, setFinalImage] = useState<string | null>(null);
   const [finalFile, setFinalFile] = useState<File | null>(null);
 

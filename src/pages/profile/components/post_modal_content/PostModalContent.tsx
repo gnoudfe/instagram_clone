@@ -1,8 +1,9 @@
 "use client";
-import Comments from "@/components/common/Comments/Comments";
 import Input from "@/components/common/Input";
+import { PostDetailDataResponse } from "@/types/users";
 import React from "react";
-
+import { formatDistanceToNow } from "date-fns";
+import Button from "@/components/common/Button";
 const PostModalContentSeperate = () => {
   return <div className="w-full h-[1px] bg-zinc-700"></div>;
 };
@@ -53,9 +54,13 @@ const PostModalContentActions = () => {
 };
 
 const PostModalContent = ({
+  type = 1,
+  postData,
   showOptionsModal,
   setShowOptionsModal,
 }: {
+  type?: 1 | 2;
+  postData: PostDetailDataResponse;
   showOptionsModal: boolean;
   setShowOptionsModal: (show: boolean) => void;
 }) => {
@@ -65,22 +70,66 @@ const PostModalContent = ({
         <div className="w-full flex items-center justify-between p-5">
           <div className="flex items-center gap-3">
             <img
-              src="https://i.ytimg.com/vi/v9XyIGXcRck/maxresdefault.jpg"
-              alt=""
+              src={
+                postData?.post?.user?.profilePicture ||
+                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+              }
+              alt={"avatar"}
               className="w-[32px] h-[32px] object-cover rounded-full cursor-pointer"
             />
-            <span className="text-sm font-normal">Duongg</span>
+            <span className="text-sm font-normal">
+              {postData?.post?.user?.username}
+            </span>
+            <Button size="xs" variant="secondary">
+              {postData?.post?.visibility}
+            </Button>
           </div>
-          <div onClick={() => setShowOptionsModal(!showOptionsModal)}>
-            <PostModalContentSettingsOpiton />
-          </div>
+          {postData?.currentUserId === postData?.post?.user?._id && (
+            <div onClick={() => setShowOptionsModal(!showOptionsModal)}>
+              <PostModalContentSettingsOpiton />
+            </div>
+          )}
         </div>
         <PostModalContentSeperate />
 
         <div className="w-full flex flex-col gap-5 mt-2 p-5">
-          <Comments />
-          <Comments />
-          <Comments />
+          <div
+            className={`w-full flex  gap-3 ${
+              type === 2 ? "items-start" : "items-center"
+            }`}
+          >
+            <img
+              src={
+                postData?.post?.user?.profilePicture ||
+                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+              }
+              alt="profile picture"
+              className="w-[32px] h-[32px] object-cover rounded-full cursor-pointer"
+            />
+            <div className="flex flex-col ">
+              <div
+                className={`flex  ${
+                  type === 2
+                    ? "flex-col gap-0 items-start"
+                    : "gap-2 items-center"
+                }`}
+              >
+                <span className="text-sm font-normal whitespace-nowrap">
+                  {postData?.post?.user?.username}
+                </span>
+                <span className="text-sm font-normal text-neutral-400">
+                  {postData?.post?.content}
+                </span>
+              </div>
+              {postData?.post?.createdAt && (
+                <span className="text-xs font-normal text-neutral-600">
+                  {formatDistanceToNow(new Date(postData.post.createdAt), {
+                    addSuffix: true,
+                  })}
+                </span>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-full ">

@@ -30,4 +30,10 @@ export const APP_API_ENDPOINT = {
     MARK_NOTIFICATIONS_AS_READ: (notificationId: string) =>
       `/mark-notification-read/${notificationId}`,
   },
+  POSTS: {
+    CREATE_POST: "/create-post",
+    MY_POSTS: "/posts/my-posts",
+    GET_POST_DETAIL: (postId: string) => `/posts/${postId}`,
+    GET_OTHER_USER_POSTS: (userId: string) => `/posts/user/${userId}`,
+  },
 };

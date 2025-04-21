@@ -191,8 +191,66 @@ class UserSocialsApiRequest {
   }
 }
 
+class PostSocialsApiRequest {
+  public CreatePost(body: FormData): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.POSTS.CREATE_POST,
+      config: {
+        method: "POST",
+        body,
+      },
+    });
+  }
+
+  public GetUserPosts({
+    cookie,
+    isServer = false,
+  }: {
+    cookie?: string | null;
+    isServer?: boolean;
+  } = {}): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.POSTS.MY_POSTS,
+      config: {
+        method: "GET",
+        headers: cookie ? { Cookie: cookie } : {},
+      },
+      isServer,
+    });
+  }
+  public GetOtherUserPosts({
+    cookie,
+    isServer = false,
+    userId,
+  }: {
+    userId: string;
+    cookie?: string | null;
+    isServer?: boolean;
+  }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.POSTS.GET_OTHER_USER_POSTS(userId),
+      config: {
+        method: "GET",
+        headers: cookie ? { Cookie: cookie } : {},
+      },
+      isServer,
+    });
+  }
+
+  public getPostDetail({ postId }: { postId: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.POSTS.GET_POST_DETAIL(postId),
+      config: {
+        method: "GET",
+      },
+    });
+  }
+}
+
 const UserSocialsApi = new UserSocialsApiRequest();
 
 const AuthScoialsApi = new AuthSocialsApiRequest();
 
-export { AuthScoialsApi, UserSocialsApi };
+const PostSocialsApi = new PostSocialsApiRequest();
+
+export { AuthScoialsApi, UserSocialsApi, PostSocialsApi };

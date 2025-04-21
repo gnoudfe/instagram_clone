@@ -50,11 +50,9 @@ const Sidebar = ({ userData }: { userData: UserDataType }) => {
             </h2>
           </Link>
           <ul className="flex w-full flex-col items-start  gap-4">
-            <SidebarItem
-              icon={<HomeIcon />}
-              name="Home"
-              onClick={() => openModal()}
-            />
+            <Link href={"/"} className="w-full">
+              <SidebarItem icon={<HomeIcon />} name="Home" />
+            </Link>
             <SidebarItem
               icon={<NewPostIcon />}
               name="Create"

@@ -59,6 +59,7 @@ const ImageUpload = ({ onNext, setImagePreviewUrl }: Props) => {
           accept="image/*"
           className="hidden"
           onChange={handleFileChange}
+          multiple
         />
       </label>
     </div>
