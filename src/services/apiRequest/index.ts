@@ -92,9 +92,46 @@ class UserSocialsApiRequest {
       isServer,
     });
   }
+
+  public GetUserFriends(): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.GET_LIST_FRIENDS,
+      config: {
+        method: "GET",
+      },
+    });
+  }
+
+  public Unfriend({ userId }: { userId: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.UNFRIEND(userId),
+      config: {
+        method: "DELETE",
+      },
+    });
+  }
+
   public sendFriendRequest({ userId }: { userId: string }): Promise<any> {
     return apiBaseServiceInstance.Http({
       path: APP_API_ENDPOINT.USER.SEND_FRIEND_REQUEST(userId),
+      config: {
+        method: "POST",
+      },
+    });
+  }
+
+  public acceptFriendRequest({ userId }: { userId: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.ACCEPT_FRIEND_REQUEST(userId),
+      config: {
+        method: "POST",
+      },
+    });
+  }
+
+  public rejectFriendRequest({ userId }: { userId: string }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.USER.REJECT_FRIEND_REQUEST(userId),
       config: {
         method: "POST",
       },
@@ -112,11 +149,26 @@ class UserSocialsApiRequest {
 
   public getNotifications(): Promise<any> {
     return apiBaseServiceInstance.Http({
-      path: APP_API_ENDPOINT.USER.GET_NOTIFICATIONS,
+      path: APP_API_ENDPOINT.NOTIFICATIONS.GET_NOTIFICATIONS,
       config: {
         method: "GET",
       },
-    }); 
+    });
+  }
+
+  public markNotificationsAsRead({
+    notificationId,
+  }: {
+    notificationId: string;
+  }): Promise<any> {
+    return apiBaseServiceInstance.Http({
+      path: APP_API_ENDPOINT.NOTIFICATIONS.MARK_NOTIFICATIONS_AS_READ(
+        notificationId
+      ),
+      config: {
+        method: "PATCH",
+      },
+    });
   }
 
   public deleteProfilePicture(): Promise<any> {

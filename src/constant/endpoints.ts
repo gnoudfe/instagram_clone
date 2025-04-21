@@ -17,6 +17,17 @@ export const APP_API_ENDPOINT = {
     SEARCH_USER: (keyword: string) => `/search-users?keyword=${keyword}`,
     GET_USER_BY_ID: (userId: string) => `/user/${userId}`,
     SEND_FRIEND_REQUEST: (userId: string) => `/send-friend-request/${userId}`,
+    ACCEPT_FRIEND_REQUEST: (userId: string) =>
+      `/accept-friend-request/${userId}`,
+    REJECT_FRIEND_REQUEST: (userId: string) =>
+      `/reject-friend-request/${userId}`,
+    GET_LIST_FRIENDS: "/get-friends",
+    UNFRIEND: (userId: string) => `/unfriend/${userId}`,
+  },
+
+  NOTIFICATIONS: {
     GET_NOTIFICATIONS: "/get-notifications",
+    MARK_NOTIFICATIONS_AS_READ: (notificationId: string) =>
+      `/mark-notification-read/${notificationId}`,
   },
 };

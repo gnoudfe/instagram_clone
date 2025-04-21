@@ -1,13 +1,19 @@
 "use client";
 import Button from "@/components/common/Button";
 import ModalSettings from "@/components/ui/ModalSettings/ModalSettings";
-import { useSendFriendRequestMutation } from "@/services/queries/useUser";
+import {
+  useAcceptFriendRequestMutation,
+  useRejectFriendRequestMutation,
+  useSendFriendRequestMutation,
+} from "@/services/queries/useUser";
 import { UserDataType } from "@/types/users";
 import React, { useState } from "react";
 import ReceiveFriendRequest from "./ReceiveFriendRequest";
 import SendFriendRequest from "./SendFriendRequest";
 import CurrentUserSettings from "./CurrentUserSettings";
 import { useRouter } from "next/navigation";
+import FriendOptions from "./FriendOptions";
+import ModalFriends from "@/components/ui/ModalFriends/ModalFriends";
 interface ProfileInforProps {
   userData: UserDataType;
   isCurrentUser: boolean;
@@ -20,10 +26,21 @@ const ProfileInfor = ({
   currentUserId,
 }: ProfileInforProps) => {
   const [isShowModalSettings, setIsShowModalSettings] = useState(false);
+  const [isShowModalFriends, setIsShowModalFriends] = useState(false);
   const [isSendingRequest, setIsSendingRequest] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const sendFriendRequestMutation = useSendFriendRequestMutation();
+
+  const acceptFriendRequestMutation = useAcceptFriendRequestMutation();
+
+  const rejectFriendRequestMutation = useRejectFriendRequestMutation();
+
+  const handleShowModalFriends = () => {
+    if(!isCurrentUser) return
+    setIsShowModalFriends(true);
+  };
 
   const handleShowModalSettings = () => {
     setIsShowModalSettings(true);
@@ -35,8 +52,15 @@ const ProfileInfor = ({
   const isReceiveFriendRequest =
     userData?.sentFriendRequests?.includes(currentUserId);
 
+  // check xem người dùng này có đang là bạn bè của mình không
+  const isFriend = userData?.friends?.includes(currentUserId);
+
   const handleCloseModalSettings = () => {
     setIsShowModalSettings(false);
+  };
+  
+  const handleCloseModalFriends = () => {
+    setIsShowModalFriends(false);
   };
 
   const handleSendFriendRequest = async () => {
@@ -55,6 +79,42 @@ const ProfileInfor = ({
       setIsSendingRequest(false);
     }
   };
+
+  const handleAcceptFriendRequest = async () => {
+    try {
+      setIsLoading(true);
+      const response = await acceptFriendRequestMutation.mutateAsync(
+        userData?._id
+      );
+      if (response.status === "success") {
+        router.refresh();
+      }
+      console.log(response);
+    } catch (error) {
+      console.log("Error sending friend request:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRejectFriendRequest = async () => {
+    try {
+      setIsLoading(true);
+      const response = await rejectFriendRequestMutation.mutateAsync(
+        userData?._id
+      );
+      if (response.status === "success") {
+        router.refresh();
+      }
+      console.log(response);
+
+    } catch (error) {
+      console.log("Error sending friend request:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="flex gap-[60px] w-full max-w-[935px]  pt-[30px]  items-center">
@@ -77,7 +137,13 @@ const ProfileInfor = ({
             ) : isSentFriendRequest ? (
               <SendFriendRequest />
             ) : isReceiveFriendRequest ? (
-              <ReceiveFriendRequest />
+              <ReceiveFriendRequest
+                handleAcceptFriendRequest={handleAcceptFriendRequest}
+                handleRejectFriendRequest={handleRejectFriendRequest}
+                isLoading={isLoading}
+              />
+            ) : isFriend ? (
+              <FriendOptions />
             ) : (
               <Button
                 size="sm"
@@ -91,13 +157,13 @@ const ProfileInfor = ({
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="text-sm font-normal text-[#A8A8A8]">
+            <span className="text-base font-normal text-[#A8A8A8]">
               <span className="text-white font-semibold">
                 {userData?.totalPosts}
               </span>{" "}
               posts
             </span>
-            <span className="text-sm font-normal text-[#A8A8A8]">
+            <span className="text-base font-normal text-[#A8A8A8] cursor-pointer hover:opacity-80 transition-all duration-300" onClick={handleShowModalFriends} >
               <span className="text-white font-semibold">
                 {userData?.totalFriends}
               </span>{" "}
@@ -110,6 +176,9 @@ const ProfileInfor = ({
       </div>
       {isShowModalSettings && (
         <ModalSettings onClose={handleCloseModalSettings} />
+      )}
+      {isShowModalFriends && (
+        <ModalFriends onClose={handleCloseModalFriends} />
       )}
     </>
   );
