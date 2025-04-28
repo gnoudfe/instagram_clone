@@ -1,13 +1,13 @@
-"use client";
-import { XIcon } from "lucide-react";
-import React, { useRef, useState } from "react";
-import SidebarIcon from "../SidebarIcon/SidebarIcon";
-import { useClickOutside } from "@/hooks/useClickOutside";
-import useDebounceValue from "@/hooks/useDebounceValue";
-import { useSearchUser } from "@/services/queries/useUser";
-import UserCard from "@/components/common/UserCard/UserCard";
-import Link from "next/link";
-import Spinner from "@/components/common/Loading/Spinner";
+'use client';
+import { XIcon } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import SidebarIcon from '../SidebarIcon/SidebarIcon';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import useDebounceValue from '@/hooks/useDebounceValue';
+import { useSearchUser } from '@/services/queries/useUser';
+import UserCard from '@/components/common/UserCard/UserCard';
+import Link from 'next/link';
+import Spinner from '@/components/common/Loading/Spinner';
 
 interface SearchUserProps {
   searchUser: boolean;
@@ -15,17 +15,14 @@ interface SearchUserProps {
   setShowSearchUser: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchUser = ({
-  onClose,
-  setShowSearchUser,
-}: SearchUserProps) => {
+const SearchUser = ({ onClose, setShowSearchUser }: SearchUserProps) => {
   const searchRef = useRef<HTMLDivElement>(null);
-  const [searchUserQuery, setSearchUserQuery] = useState("");
+  const [searchUserQuery, setSearchUserQuery] = useState('');
 
   const debounceSearchUserQuery = useDebounceValue(searchUserQuery, 500);
 
   const { data, isLoading } = useSearchUser({
-    keyword: debounceSearchUserQuery.trim() || "",
+    keyword: debounceSearchUserQuery.trim() || '',
   });
 
   useClickOutside(searchRef, () => {
@@ -69,10 +66,7 @@ const SearchUser = ({
       </div>
 
       <div>
-        <div
-          className="absolute top-5 right-5 cursor-pointer"
-          onClick={onClose}
-        >
+        <div className="absolute top-5 right-5 cursor-pointer" onClick={onClose}>
           <XIcon />
         </div>
       </div>

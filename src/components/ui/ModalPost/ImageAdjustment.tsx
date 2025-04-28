@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ImageAdjustmentProps {
   brightness: number;
@@ -41,7 +41,7 @@ const ImageAdjustment = ({
   zoom,
   setZoom,
 }: ImageAdjustmentProps) => {
-  console.log('brightness',brightness)
+  console.log('brightness', brightness);
   return (
     <div className="p-5 w-full animate-fade-in">
       <div className="w-full flex flex-col gap-4">
@@ -90,7 +90,7 @@ const ImageAdjustment = ({
           value={rotate}
           onChange={(e) => setRotate(Number(e.target.value))}
         />
-         <label>Zoom</label>
+        <label>Zoom</label>
         <input
           className="accent-white w-full h-1 mb-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-neutral-600"
           type="range"
@@ -125,14 +125,10 @@ const ImageAdjustment = ({
             className="w-[30px] h-[30px]  bg-white rounded-md cursor-pointer"
             onClick={() => {
               reset();
-              setSelectedFilter("Original");
+              setSelectedFilter('Original');
             }}
           >
-            <img
-              src="/reset.svg"
-              alt=""
-              className="w-full h-full object-cover rounded-md"
-            />
+            <img src="/reset.svg" alt="" className="w-full h-full object-cover rounded-md" />
           </div>
         </div>
       </div>

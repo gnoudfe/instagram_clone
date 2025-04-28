@@ -1,6 +1,6 @@
-"use client";
-import { UserInfo } from "@/types/users";
-import React from "react";
+'use client';
+import { UserInfo } from '@/types/users';
+import React from 'react';
 
 type PostFooterProps = {
   totalLikes: UserInfo[];

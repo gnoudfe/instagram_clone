@@ -1,9 +1,9 @@
-"use client";
-import MoreOptions from "@/components/icons/MoreOptions/MoreOptions";
-import { UserInfo } from "@/types/users";
-import { formatDistanceToNow } from "date-fns";
-import Link from "next/link";
-import React from "react";
+'use client';
+import MoreOptions from '@/components/icons/MoreOptions/MoreOptions';
+import { UserInfo } from '@/types/users';
+import { formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
+import React from 'react';
 
 type PostHeaderProps = {
   userData: UserInfo;
@@ -25,16 +25,13 @@ const PostHeader = ({
           <img
             src={
               userData?.profilePicture ||
-              "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+              'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg'
             }
             alt=""
             className="w-[32px] h-[32px] rounded-full object-cover cursor-pointer"
           />
         </Link>
-        <Link
-          href={`${userData?._id}`}
-          className="text-white text-sm font-medium "
-        >
+        <Link href={`${userData?._id}`} className="text-white text-sm font-medium ">
           {userData?.username}
         </Link>
         <div className="w-1 h-1 rounded-full bg-gray-600"></div>

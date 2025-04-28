@@ -1,9 +1,9 @@
 export interface ButtonProps {
   children: React.ReactNode;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "outline";
-  rounded?: "sm" | "md" | "lg" | "xl";
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'outline';
+  rounded?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   fullWidth?: boolean;
   onClick?: () => void;
   disabled?: boolean;

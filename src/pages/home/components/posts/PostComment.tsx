@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 const PostComment = ({ totalsComments }: any) => {
   return (
@@ -8,9 +8,7 @@ const PostComment = ({ totalsComments }: any) => {
         View all {totalsComments?.length} comments
       </span>
 
-      <span className="text-sm font-medium text-zinc-400 cursor-pointer">
-        Add a comment...
-      </span>
+      <span className="text-sm font-medium text-zinc-400 cursor-pointer">Add a comment...</span>
     </div>
   );
 };

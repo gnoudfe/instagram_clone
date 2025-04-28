@@ -1,15 +1,15 @@
-"use client";
-import React, { useState } from "react";
-import PostModalContent from "../components/post_modal_content/PostModalContent";
-import { useRouter } from "next/navigation";
-import ModalOptionsPosts from "@/components/ui/ModalOptionsPosts/ModalOptionsPosts";
-import { useGetPostDetail } from "@/services/queries/usePost";
-import { PostDetailDataResponse } from "@/types/users";
-import { SwiperSlide, Swiper } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+'use client';
+import React, { useState } from 'react';
+import PostModalContent from '../components/post_modal_content/PostModalContent';
+import { useRouter } from 'next/navigation';
+import ModalOptionsPosts from '@/components/ui/ModalOptionsPosts/ModalOptionsPosts';
+import { useGetPostDetail } from '@/services/queries/usePost';
+import { PostDetailDataResponse } from '@/types/users';
+import { SwiperSlide, Swiper } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 
 const PostProfileModalLayout = ({ postId }: { postId: string }) => {
   const router = useRouter();
@@ -41,11 +41,7 @@ const PostProfileModalLayout = ({ postId }: { postId: string }) => {
               >
                 {data?.post?.images.map((url, index) => (
                   <SwiperSlide key={index}>
-                    <img
-                      src={url}
-                      alt={url}
-                      className="w-full h-full object-cover rounded-sm "
-                    />
+                    <img src={url} alt={url} className="w-full h-full object-cover rounded-sm " />
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -69,7 +65,7 @@ const PostProfileModalLayout = ({ postId }: { postId: string }) => {
         </div>
       </div>
       {showOptionsModal && (
-        <ModalOptionsPosts postId={postId} setShowOptionsModal={setShowOptionsModal}  type="Modal" />
+        <ModalOptionsPosts postId={postId} setShowOptionsModal={setShowOptionsModal} type="Modal" />
       )}
     </>
   );

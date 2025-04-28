@@ -1,12 +1,12 @@
-"use client";
-import getCroppedImg from "@/utils/cropImage";
-import React, { useCallback, useState } from "react";
-import Cropper from "react-easy-crop";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+'use client';
+import getCroppedImg from '@/utils/cropImage';
+import React, { useCallback, useState } from 'react';
+import Cropper from 'react-easy-crop';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 
 type ImageCropProps = {
   imagePreviewUrls: string[];
@@ -15,19 +15,14 @@ type ImageCropProps = {
   onBack: () => void;
 };
 
-const MultiImageCrop = ({
-  imagePreviewUrls,
-  setCroppedFiles,
-  onNext,
-  onBack,
-}: ImageCropProps) => {
+const MultiImageCrop = ({ imagePreviewUrls, setCroppedFiles, onNext, onBack }: ImageCropProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cropStates, setCropStates] = useState(
     imagePreviewUrls.map(() => ({
       crop: { x: 0, y: 0 },
       zoom: 1,
       croppedAreaPixels: null,
-    }))
+    })),
   );
 
   const onCropChange = (crop: any) => {
@@ -48,7 +43,7 @@ const MultiImageCrop = ({
       newStates[currentIndex].croppedAreaPixels = croppedAreaPixels;
       setCropStates(newStates);
     },
-    [cropStates, currentIndex]
+    [cropStates, currentIndex],
   );
 
   const handleCropConfirm = async () => {
@@ -61,7 +56,7 @@ const MultiImageCrop = ({
         const cropped = await getCroppedImg(
           imagePreviewUrls[i],
           croppedAreaPixels,
-          `crop-image${[i]}`
+          `crop-image${[i]}`,
         );
         croppedFiles.push(cropped);
       } else {
@@ -77,7 +72,7 @@ const MultiImageCrop = ({
         }
       }
     }
-    console.log("cropFiles", croppedFiles);
+    console.log('cropFiles', croppedFiles);
     setCroppedFiles(croppedFiles);
 
     onNext();
@@ -91,10 +86,7 @@ const MultiImageCrop = ({
           Back
         </button>
         <span>Crop</span>
-        <button
-          onClick={handleCropConfirm}
-          className="text-blue-600 absolute right-5 "
-        >
+        <button onClick={handleCropConfirm} className="text-blue-600 absolute right-5 ">
           Next
         </button>
       </div>
@@ -118,7 +110,7 @@ const MultiImageCrop = ({
                   image={url}
                   crop={cropStates[index].crop}
                   zoom={cropStates[index].zoom}
-                  aspect={4/5} // Instagram post ratio
+                  aspect={4 / 5} // Instagram post ratio
                   onCropChange={onCropChange}
                   onZoomChange={onZoomChange}
                   onCropComplete={onCropComplete}

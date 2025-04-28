@@ -38,4 +38,4 @@ npm run start
 3. Cấu hình biến môi trường (nếu cần)
 4. Nhấn Deploy
 
-*Tham khảo tài liệu đầy đủ trong file DOCUMENTATION.md*
+_Tham khảo tài liệu đầy đủ trong file DOCUMENTATION.md_

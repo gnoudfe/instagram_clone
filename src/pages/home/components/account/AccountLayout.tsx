@@ -1,6 +1,6 @@
-import React from "react";
-import Recommend from "./Recommend";
-import UserAccount from "./UserAccount";
+import React from 'react';
+import Recommend from './Recommend';
+import UserAccount from './UserAccount';
 
 const AccountLayout = () => {
   return (

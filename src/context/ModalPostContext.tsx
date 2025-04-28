@@ -1,5 +1,5 @@
-"use client";
-import { createContext, useContext, useState } from "react";
+'use client';
+import { createContext, useContext, useState } from 'react';
 
 interface ModalPostContextType {
   isOpen: boolean;
@@ -13,15 +13,9 @@ interface ModalPostContextType {
   setShowAlertModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalPostContext = createContext<ModalPostContextType | undefined>(
-  undefined
-);
+const ModalPostContext = createContext<ModalPostContextType | undefined>(undefined);
 
-export const ModalPostProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const ModalPostProvider = ({ children }: { children: React.ReactNode }) => {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
@@ -71,7 +65,7 @@ export const ModalPostProvider = ({
 export const usePostModal = () => {
   const context = useContext(ModalPostContext);
   if (!context) {
-    throw new Error("usePostModal must be used within a ModalPostProvider");
+    throw new Error('usePostModal must be used within a ModalPostProvider');
   }
   return context;
 };

@@ -1,29 +1,29 @@
-"use client";
-import Spinner from "@/components/common/Loading/Spinner";
-import { usePostModal } from "@/context/ModalPostContext";
-import { useUserInfor } from "@/services/queries/useAuth";
-import { useCreatePostMutation } from "@/services/queries/usePost";
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+'use client';
+import Spinner from '@/components/common/Loading/Spinner';
+import { usePostModal } from '@/context/ModalPostContext';
+import { useUserInfor } from '@/services/queries/useAuth';
+import { useCreatePostMutation } from '@/services/queries/usePost';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 const Visiblity = [
   {
     id: 1,
-    value: "Public",
+    value: 'Public',
   },
   {
     id: 2,
-    value: "Friends",
+    value: 'Friends',
   },
   {
     id: 3,
-    value: "Private",
+    value: 'Private',
   },
 ];
 
@@ -35,13 +35,11 @@ interface ImageContentProps {
 const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
   const { confirmCloseModal } = usePostModal();
   const [showVisiblity, setShowVisiblity] = React.useState(false);
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState("");
-  const [currentVisiblity, setCurrentVisiblity] = React.useState(
-    Visiblity[0].value
-  );
-  const router =useRouter();
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [currentVisiblity, setCurrentVisiblity] = React.useState(Visiblity[0].value);
+  const router = useRouter();
 
   const queryClient = useQueryClient();
   const { data } = useUserInfor();
@@ -50,40 +48,39 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
 
   const handlePost = async () => {
     if (!content.trim()) {
-      setErrorMessage("Content cannot be empty.");
+      setErrorMessage('Content cannot be empty.');
       return;
     }
     const formData = new FormData();
     finalFile.forEach((file) => {
-      formData.append("images", file);
+      formData.append('images', file);
     });
-    formData.append("content", content);
-    formData.append("visibility", currentVisiblity);
+    formData.append('content', content);
+    formData.append('visibility', currentVisiblity);
 
     try {
       setIsLoading(true);
-      setErrorMessage(""); // Reset error message before new request
+      setErrorMessage(''); // Reset error message before new request
       const response = await createPostMutation.mutateAsync(formData);
-      if (response.status === "success") {
+      if (response.status === 'success') {
         confirmCloseModal();
         queryClient.invalidateQueries({
-          queryKey: ["get-posts-feed"],
-          refetchType: "all",
+          queryKey: ['get-posts-feed'],
+          refetchType: 'all',
         });
         router.refresh();
-        
       } else if (response.message) {
         setErrorMessage(response.message);
       }
     } catch (error: any) {
-      console.log("error while posting", error);
+      console.log('error while posting', error);
       // Extract error message from API response if available
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
       } else if (error.message) {
         setErrorMessage(error.message);
       } else {
-        setErrorMessage("Đã xảy ra lỗi khi đăng bài. Vui lòng thử lại sau.");
+        setErrorMessage('Đã xảy ra lỗi khi đăng bài. Vui lòng thử lại sau.');
       }
     } finally {
       setIsLoading(false);
@@ -108,7 +105,7 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
           className="text-sm absolute right-5 text-blue-700 cursor-pointer"
           onClick={handlePost}
         >
-          {isLoading ? <Spinner /> : "Share"}
+          {isLoading ? <Spinner /> : 'Share'}
         </span>
       </div>
       {errorMessage && (
@@ -154,7 +151,7 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
             <img
               src={
                 data?.user?.profilePicture ||
-                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+                'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg'
               }
               alt=""
               className="w-[28px] h-[28px] object-cover rounded-full"
@@ -177,11 +174,7 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
             >
               <span>Visibility</span>
               <div
-                className={
-                  showVisiblity
-                    ? "rotate-0 transition-all"
-                    : "rotate-180 transition-all"
-                }
+                className={showVisiblity ? 'rotate-0 transition-all' : 'rotate-180 transition-all'}
               >
                 <svg
                   aria-label="Down chevron icon"
@@ -207,7 +200,7 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
                     <span className="text-sm text-white">{item.value}</span>
                     <div
                       className={`w-[16px] h-[16px] border border-white rounded-full cursor-pointer ${
-                        currentVisiblity === item.value ? "bg-white" : ""
+                        currentVisiblity === item.value ? 'bg-white' : ''
                       }`}
                     ></div>
                   </div>

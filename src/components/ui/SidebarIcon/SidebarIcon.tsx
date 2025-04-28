@@ -1,9 +1,9 @@
-"use client";
-import NewPostIcon from "@/components/icons/NewPost/NewPostIcon";
-import { usePostModal } from "@/context/ModalPostContext";
-import { HeartIcon, HomeIcon, SearchIcon } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+'use client';
+import NewPostIcon from '@/components/icons/NewPost/NewPostIcon';
+import { usePostModal } from '@/context/ModalPostContext';
+import { HeartIcon, HomeIcon, SearchIcon } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
 const SidebarIcon = ({ onClose }: { onClose: () => void }) => {
   const { openModal } = usePostModal();
@@ -11,7 +11,7 @@ const SidebarIcon = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="w-[60px] bg-black flex flex-col items-center">
       <Link
-        href={"/"}
+        href={'/'}
         onClick={onClose}
         className="cursor-pointer w-[44px] h-[44px] flex items-center justify-center rounded-lg hover:bg-neutral-900 transition-all duration-300 mt-14"
       >
@@ -29,7 +29,7 @@ const SidebarIcon = ({ onClose }: { onClose: () => void }) => {
       </Link>
 
       <Link
-        href={"/"}
+        href={'/'}
         className="cursor-pointer w-[44px] h-[44px] flex items-center justify-center rounded-lg hover:bg-neutral-900 transition-all duration-300 mt-6"
         onClick={onClose}
       >
@@ -41,7 +41,10 @@ const SidebarIcon = ({ onClose }: { onClose: () => void }) => {
       >
         <NewPostIcon />
       </div>
-      <div onClick={onClose} className="cursor-pointer w-[44px] h-[44px] flex items-center justify-center rounded-lg hover:bg-neutral-900 transition-all duration-300 mt-6">
+      <div
+        onClick={onClose}
+        className="cursor-pointer w-[44px] h-[44px] flex items-center justify-center rounded-lg hover:bg-neutral-900 transition-all duration-300 mt-6"
+      >
         <HeartIcon />
       </div>
       <div

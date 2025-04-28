@@ -1,7 +1,7 @@
-import UserCard from "@/components/common/UserCard/UserCard";
-import { getUserInfor } from "@/services/apiServer/userService";
-import { UserDataResponse } from "@/types/users";
-import React from "react";
+import UserCard from '@/components/common/UserCard/UserCard';
+import { getUserInfor } from '@/services/apiServer/userService';
+import { UserDataResponse } from '@/types/users';
+import React from 'react';
 
 const UserAccount = async () => {
   const userInfordata: UserDataResponse = await getUserInfor();

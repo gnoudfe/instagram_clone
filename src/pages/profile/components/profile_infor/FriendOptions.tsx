@@ -1,5 +1,5 @@
-import Button from "@/components/common/Button";
-import React from "react";
+import Button from '@/components/common/Button';
+import React from 'react';
 
 const FriendOptions = () => {
   return (

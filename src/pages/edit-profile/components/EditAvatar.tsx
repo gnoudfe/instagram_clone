@@ -1,8 +1,8 @@
-"use client";
-import Button from "@/components/common/Button";
-import React, { useState } from "react";
-import ModalEditAvatar from "./ModalEditAvatar";
-import { UserDataType } from "@/types/users";
+'use client';
+import Button from '@/components/common/Button';
+import React, { useState } from 'react';
+import ModalEditAvatar from './ModalEditAvatar';
+import { UserDataType } from '@/types/users';
 
 interface EditAvatarProps {
   userData: UserDataType;
@@ -20,22 +20,16 @@ const EditAvatar = ({ userData }: EditAvatarProps) => {
             <img
               src={
                 userData?.profilePicture ||
-                "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+                'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg'
               }
               alt=""
               className="w-[60px] h-[60px] object-cover rounded-full"
             />
             <div className="flex flex-col gap-2">
-              <span className="text-white font-semibold">
-                {userData?.username}
-              </span>
+              <span className="text-white font-semibold">{userData?.username}</span>
             </div>
           </div>
-          <Button
-            size="md"
-            onClick={() => setShowEditAvatarModal(true)}
-            disabled={isAvatarLoading}
-          >
+          <Button size="md" onClick={() => setShowEditAvatarModal(true)} disabled={isAvatarLoading}>
             {isAvatarLoading ? (
               <>
                 <svg
@@ -61,7 +55,7 @@ const EditAvatar = ({ userData }: EditAvatarProps) => {
                 Updating...
               </>
             ) : (
-              "Change avatar"
+              'Change avatar'
             )}
           </Button>
         </div>

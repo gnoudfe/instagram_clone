@@ -1,6 +1,6 @@
 // src/components/common/Input.tsx
-import { InputProps } from "@/types/types";
-import React from "react";
+import { InputProps } from '@/types/types';
+import React from 'react';
 
 const Input: React.FC<InputProps> = ({
   type,
@@ -31,8 +31,8 @@ const Input: React.FC<InputProps> = ({
         onBlur={onBlur}
         className={
           isTransparent
-            ? "w-full p-2 text-white placeholder-white focus:outline-none text-sm bg-transparent border-none outline-none"
-            : "w-full p-2 bg-[#121212] border border-gray-700 rounded text-white placeholder-white focus:border-blue-500 focus:outline-none text-sm"
+            ? 'w-full p-2 text-white placeholder-white focus:outline-none text-sm bg-transparent border-none outline-none'
+            : 'w-full p-2 bg-[#121212] border border-gray-700 rounded text-white placeholder-white focus:border-blue-500 focus:outline-none text-sm'
         }
       />
     </div>

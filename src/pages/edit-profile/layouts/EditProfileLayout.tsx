@@ -1,8 +1,8 @@
-import React from "react";
-import EditAvatar from "../components/EditAvatar";
-import EditBio from "../components/EditBio";
-import { getUserInfor } from "@/services/apiServer/userService";
-import { UserDataResponse } from "@/types/users";
+import React from 'react';
+import EditAvatar from '../components/EditAvatar';
+import EditBio from '../components/EditBio';
+import { getUserInfor } from '@/services/apiServer/userService';
+import { UserDataResponse } from '@/types/users';
 
 const EditProfileLayout = async () => {
   const userInfordata: UserDataResponse = await getUserInfor();

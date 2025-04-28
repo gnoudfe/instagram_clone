@@ -1,23 +1,18 @@
-"use client";
-import { XIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
-import SidebarIcon from "../SidebarIcon/SidebarIcon";
-import { useClickOutside } from "@/hooks/useClickOutside";
-import {
-  useGetNotifications,
-  useMarkNotificationsMutation,
-} from "@/services/queries/useUser";
-import Spinner from "@/components/common/Loading/Spinner";
-import Link from "next/link";
-import { userNotificationsType } from "@/types/users";
-import { usePusherNotifications } from "@/hooks/usePusherNotifications";
+'use client';
+import { XIcon } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import SidebarIcon from '../SidebarIcon/SidebarIcon';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import { useGetNotifications, useMarkNotificationsMutation } from '@/services/queries/useUser';
+import Spinner from '@/components/common/Loading/Spinner';
+import Link from 'next/link';
+import { userNotificationsType } from '@/types/users';
+import { usePusherNotifications } from '@/hooks/usePusherNotifications';
 
 type NotificationsProps = {
   showNotifications: boolean;
   onClose: () => void;
-  setTotalNotificationsUnread: React.Dispatch<
-    React.SetStateAction<number | null>
-  >;
+  setTotalNotificationsUnread: React.Dispatch<React.SetStateAction<number | null>>;
   userDataId: string;
 };
 
@@ -27,9 +22,7 @@ const Notifications = ({
   onClose,
   setTotalNotificationsUnread,
 }: NotificationsProps) => {
-  const [notifications, setNotifications] = useState<userNotificationsType[]>(
-    []
-  );
+  const [notifications, setNotifications] = useState<userNotificationsType[]>([]);
   const notificationsRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading } = useGetNotifications();
@@ -44,28 +37,24 @@ const Notifications = ({
     // UI optimistically updates
     setNotifications((prev) =>
       prev.map((notification) =>
-        notification._id === notificationId
-          ? { ...notification, isRead: true }
-          : notification
-      )
+        notification._id === notificationId ? { ...notification, isRead: true } : notification,
+      ),
     );
 
     try {
       const response = await markNotificationAsReadMutation.mutateAsync({
         notificationId,
       });
-      if (response.status === "success") {
+      if (response.status === 'success') {
         onClose();
       }
     } catch (error) {
-      console.error("Failed to mark notification as read", error);
+      console.error('Failed to mark notification as read', error);
       // Optional: rollback UI if needed
       setNotifications((prev) =>
         prev.map((notification) =>
-          notification._id === notificationId
-            ? { ...notification, isRead: false }
-            : notification
-        )
+          notification._id === notificationId ? { ...notification, isRead: false } : notification,
+        ),
       );
     }
   };
@@ -88,7 +77,7 @@ const Notifications = ({
     <div
       ref={notificationsRef}
       className={` flex fixed h-full border-r border-gray-600 transition-all duration-300 overflow-hidden  w-[24%] animate-fade-in ${
-        showNotifications ? "translate-x-0" : " translate-x-[-100%]"
+        showNotifications ? 'translate-x-0' : ' translate-x-[-100%]'
       } `}
     >
       <SidebarIcon onClose={onClose} />
@@ -109,21 +98,17 @@ const Notifications = ({
                   <img
                     src={
                       notification?.sender?.profilePicture ||
-                      "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+                      'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg'
                     }
                     alt="avatar image"
                     className="w-[44px] h-[44px] rounded-full object-cover block cursor-pointer"
                   />
                   <div className="flex flex-col">
-                    <h4 className="text-sm font-semibold">
-                      {notification?.sender?.username}
-                    </h4>
+                    <h4 className="text-sm font-semibold">{notification?.sender?.username}</h4>
                     <span className="text-xs">{notification?.message}</span>
                   </div>
                 </div>
-                {!notification?.isRead && (
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                )}
+                {!notification?.isRead && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
               </div>
             </Link>
           ))}
@@ -131,10 +116,7 @@ const Notifications = ({
       </div>
 
       <div>
-        <div
-          className="absolute top-5 right-5 cursor-pointer"
-          onClick={onClose}
-        >
+        <div className="absolute top-5 right-5 cursor-pointer" onClick={onClose}>
           <XIcon />
         </div>
       </div>

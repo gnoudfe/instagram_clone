@@ -1,6 +1,6 @@
-import { Postdata } from "@/types/users";
-import Link from "next/link";
-import React from "react";
+import { Postdata } from '@/types/users';
+import Link from 'next/link';
+import React from 'react';
 
 interface ProfileContentProps {
   postsData: Postdata[];

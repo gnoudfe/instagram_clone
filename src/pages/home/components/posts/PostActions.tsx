@@ -1,9 +1,9 @@
-"use client";
-import LikeButton from "@/components/common/LikeButton/LikeButton";
-import SavedButton from "@/components/common/SavedButton/SavedButton";
-import CommentIcon from "@/components/icons/Comment/CommentIcon";
+'use client';
+import LikeButton from '@/components/common/LikeButton/LikeButton';
+import SavedButton from '@/components/common/SavedButton/SavedButton';
+import CommentIcon from '@/components/icons/Comment/CommentIcon';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const PostActions = () => {
   const [isLike, setIsLike] = useState(false);

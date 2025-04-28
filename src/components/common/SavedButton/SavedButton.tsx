@@ -1,6 +1,6 @@
-import SaveIcon from "@/components/icons/Save/SaveIcon";
-import SavedIcon from "@/components/icons/Saved/SavedIcon";
-import React from "react";
+import SaveIcon from '@/components/icons/Save/SaveIcon';
+import SavedIcon from '@/components/icons/Saved/SavedIcon';
+import React from 'react';
 
 interface SavedButtonProps {
   isSaved: boolean;
@@ -9,10 +9,7 @@ interface SavedButtonProps {
 
 const SavedButton = ({ isSaved, handleSavePost }: SavedButtonProps) => {
   return (
-    <div
-      className={`cursor-pointer ${isSaved ? "" : "hover:opacity-80"}`}
-      onClick={handleSavePost}
-    >
+    <div className={`cursor-pointer ${isSaved ? '' : 'hover:opacity-80'}`} onClick={handleSavePost}>
       {isSaved ? <SavedIcon /> : <SaveIcon />}
     </div>
   );

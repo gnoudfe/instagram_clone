@@ -1,6 +1,6 @@
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
-import { PostSocialsApi } from "../apiRequest";
-import { PostDataResponse, PostDetailDataResponse } from "@/types/users";
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { PostSocialsApi } from '../apiRequest';
+import { PostDataResponse, PostDetailDataResponse } from '@/types/users';
 
 export const useCreatePostMutation = () => {
   return useMutation({
@@ -10,7 +10,7 @@ export const useCreatePostMutation = () => {
 
 export const useGetMyPostsQuery = () => {
   return useQuery({
-    queryKey: ["my-posts"],
+    queryKey: ['my-posts'],
     queryFn: async () => {
       const response = await PostSocialsApi.GetUserPosts();
       return response;
@@ -20,16 +20,16 @@ export const useGetMyPostsQuery = () => {
 
 export const useGetPostsFeed = ({ limit }: { limit: number | null }) => {
   return useInfiniteQuery({
-    queryKey: ["get-posts-feed", limit],
+    queryKey: ['get-posts-feed', limit],
     queryFn: async ({ pageParam = 0 }) => {
       const offset = pageParam;
 
       const response = await PostSocialsApi.getPostFeed({ limit, offset });
 
-      if (response.status === "success") {
+      if (response.status === 'success') {
         return response;
       }
-      throw new Error("Error fetching latest video");
+      throw new Error('Error fetching latest video');
     },
     getNextPageParam: (lastPage, allPages) => {
       const loadedVideoCount = allPages.reduce((total, page) => {
@@ -50,7 +50,7 @@ export const useGetPostsFeed = ({ limit }: { limit: number | null }) => {
 
 export const useGetOtherUserPostsQuery = ({ userId }: { userId: string }) => {
   return useQuery<PostDataResponse>({
-    queryKey: ["get-other-user-posts", userId],
+    queryKey: ['get-other-user-posts', userId],
     queryFn: async () => {
       const response = await PostSocialsApi.GetOtherUserPosts({ userId });
       return response;
@@ -60,7 +60,7 @@ export const useGetOtherUserPostsQuery = ({ userId }: { userId: string }) => {
 
 export const useGetPostDetail = ({ postId }: { postId: string }) => {
   return useQuery<PostDetailDataResponse>({
-    queryKey: ["get-posts-detail", postId],
+    queryKey: ['get-posts-detail', postId],
     queryFn: async () => {
       const response = await PostSocialsApi.getPostDetail({ postId });
       return response;

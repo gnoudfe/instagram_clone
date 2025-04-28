@@ -1,65 +1,64 @@
-import React from "react";
+import React from 'react';
 
 const filters = [
-  { name: "Original", value: "none" },
+  { name: 'Original', value: 'none' },
   {
-    name: "Icy Water",
+    name: 'Icy Water',
     value:
-      "brightness(104%) contrast(104%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(122%) sepia(0%)",
+      'brightness(104%) contrast(104%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(122%) sepia(0%)',
     grayscale: 0,
     brightness: 104,
     contrast: 104,
     saturate: 122,
   },
   {
-    name: "Sweet Sunset",
+    name: 'Sweet Sunset',
     value:
-      " contrast(128%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(120%) sepia(0%)",
+      ' contrast(128%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(120%) sepia(0%)',
     grayscale: 0,
     brightness: 100,
     contrast: 128,
     saturate: 120,
   },
   {
-    name: "Burnt Cofffe",
+    name: 'Burnt Cofffe',
     value:
-      "contrast(80%) grayscale(100%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(0%)",
+      'contrast(80%) grayscale(100%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(0%)',
     grayscale: 100,
     brightness: 100,
     contrast: 80,
     saturate: 100,
   },
   {
-    name: "Ocean Wave",
+    name: 'Ocean Wave',
     value:
-      "brightness(105%) contrast(104%) grayscale(10%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(50%)",
+      'brightness(105%) contrast(104%) grayscale(10%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(50%)',
     grayscale: 10,
     brightness: 105,
     contrast: 104,
     saturate: 100,
   },
   {
-    name: "Summer Heal",
-    value:
-      " grayscale(50%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(140%) sepia(0%)",
+    name: 'Summer Heal',
+    value: ' grayscale(50%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(140%) sepia(0%)',
     grayscale: 50,
     brightness: 100,
     contrast: 100,
     saturate: 140,
   },
   {
-    name: "Lark",
+    name: 'Lark',
     value:
-      "brightness(120%) contrast(120%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(150%)",
+      'brightness(120%) contrast(120%) grayscale(0%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(150%)',
     grayscale: 0,
     brightness: 120,
     contrast: 120,
     saturate: 150,
   },
   {
-    name: "Juno",
+    name: 'Juno',
     value:
-      "brightness(70%) contrast(140%) grayscale(40%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(120%)",
+      'brightness(70%) contrast(140%) grayscale(40%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(120%)',
     grayscale: 40,
     brightness: 70,
     contrast: 140,
@@ -109,9 +108,7 @@ const ImageFilterOptions = ({
           </div>
           <span
             className={`text-sm transition-all duration-300 ${
-              selectedFilter === filter.name
-                ? "text-blue-600"
-                : "text-zinc-400"
+              selectedFilter === filter.name ? 'text-blue-600' : 'text-zinc-400'
             }`}
           >
             {filter.name}

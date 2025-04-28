@@ -1,11 +1,11 @@
-"use client";
-import { AnimatePresence, motion } from "framer-motion";
-import LikeIconType2 from "@/components/icons/Like/LikeIconType2";
-import React, { useRef, useState, useEffect } from "react";
-import { SwiperSlide, Swiper } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+'use client';
+import { AnimatePresence, motion } from 'framer-motion';
+import LikeIconType2 from '@/components/icons/Like/LikeIconType2';
+import React, { useRef, useState, useEffect } from 'react';
+import { SwiperSlide, Swiper } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 interface HeartsType {
   id: number;
@@ -69,10 +69,7 @@ const PostContent = ({ postContent }: { postContent: string[] }) => {
         </Swiper>
       )}
 
-      <div
-        ref={paginationRef}
-        className="swiper-pagination-posts mt-3 justify-center "
-      />
+      <div ref={paginationRef} className="swiper-pagination-posts mt-3 justify-center " />
 
       <AnimatePresence>
         {hearts.map((heart) => (
@@ -81,8 +78,8 @@ const PostContent = ({ postContent }: { postContent: string[] }) => {
             style={{
               left: heart.positionX,
               top: heart.positionY,
-              translateX: "-50%",
-              translateY: "-50%",
+              translateX: '-50%',
+              translateY: '-50%',
             }}
             animate={{
               rotate: [-60, 0, 20],

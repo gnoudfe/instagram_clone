@@ -1,15 +1,12 @@
-"use client";
-import Button from "@/components/common/Button";
-import Spinner from "@/components/common/Loading/Spinner";
-import UserCard from "@/components/common/UserCard/UserCard";
-import {
-  useGetListUserFriends,
-  useUnfriendMutation,
-} from "@/services/queries/useUser";
-import { useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React from "react";
+'use client';
+import Button from '@/components/common/Button';
+import Spinner from '@/components/common/Loading/Spinner';
+import UserCard from '@/components/common/UserCard/UserCard';
+import { useGetListUserFriends, useUnfriendMutation } from '@/services/queries/useUser';
+import { useQueryClient } from '@tanstack/react-query';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 const ModalFriends = ({ onClose }: { onClose: () => void }) => {
   const { data: listUserFriends, isLoading } = useGetListUserFriends();
@@ -21,13 +18,12 @@ const ModalFriends = ({ onClose }: { onClose: () => void }) => {
 
     try {
       const response = await unfriendMutate.mutateAsync(userId);
-      if (response.status === "success") {
+      if (response.status === 'success') {
         router.refresh();
-        queryClient.invalidateQueries({ queryKey: ["get-list-user-friends"] });
-        
+        queryClient.invalidateQueries({ queryKey: ['get-list-user-friends'] });
       }
     } catch (error) {
-      console.log("error while unfriend", error);
+      console.log('error while unfriend', error);
     }
   };
 
@@ -49,11 +45,7 @@ const ModalFriends = ({ onClose }: { onClose: () => void }) => {
               <UserCard userData={friend} />
 
               <div onClick={(e) => e.preventDefault()}>
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => handleUnfriend(friend._id)}
-                >
+                <Button size="sm" variant="secondary" onClick={() => handleUnfriend(friend._id)}>
                   Remove
                 </Button>
               </div>

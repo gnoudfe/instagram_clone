@@ -1,15 +1,14 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { UserSocialsApi } from "../apiRequest";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { UserSocialsApi } from '../apiRequest';
 import {
   userListFriendsDataResponse,
   userNotificationsDataResponse,
   userSearchDataResponse,
-} from "@/types/users";
+} from '@/types/users';
 
 export const useChangeProfilePictureMutation = () => {
   return useMutation({
-    mutationFn: (formData: FormData) =>
-      UserSocialsApi.ChangeProfilePicture(formData),
+    mutationFn: (formData: FormData) => UserSocialsApi.ChangeProfilePicture(formData),
   });
 };
 
@@ -21,8 +20,7 @@ export const useDeleteProfilePictureMutation = () => {
 
 export const useSendFriendRequestMutation = () => {
   return useMutation({
-    mutationFn: (userId: string) =>
-      UserSocialsApi.sendFriendRequest({ userId }),
+    mutationFn: (userId: string) => UserSocialsApi.sendFriendRequest({ userId }),
   });
 };
 
@@ -34,32 +32,30 @@ export const useUnfriendMutation = () => {
 
 export const useAcceptFriendRequestMutation = () => {
   return useMutation({
-    mutationFn: (userId: string) =>
-      UserSocialsApi.acceptFriendRequest({ userId }),
+    mutationFn: (userId: string) => UserSocialsApi.acceptFriendRequest({ userId }),
   });
 };
 
 export const useRejectFriendRequestMutation = () => {
   return useMutation({
-    mutationFn: (userId: string) =>
-      UserSocialsApi.rejectFriendRequest({ userId }),
+    mutationFn: (userId: string) => UserSocialsApi.rejectFriendRequest({ userId }),
   });
 };
 
 export const useSearchUser = ({ keyword }: { keyword: string }) => {
   return useQuery<userSearchDataResponse>({
-    queryKey: ["search-user", keyword],
+    queryKey: ['search-user', keyword],
     queryFn: async () => {
       const response = await UserSocialsApi.searchUsers({ keyword });
       return response;
     },
-    enabled: keyword.trim() !== "",
+    enabled: keyword.trim() !== '',
   });
 };
 
 export const useGetNotifications = () => {
   return useQuery<userNotificationsDataResponse>({
-    queryKey: ["get-notifications"],
+    queryKey: ['get-notifications'],
     queryFn: async () => {
       const response = await UserSocialsApi.getNotifications();
       return response;
@@ -69,7 +65,7 @@ export const useGetNotifications = () => {
 
 export const useGetListUserFriends = () => {
   return useQuery<userListFriendsDataResponse>({
-    queryKey: ["get-list-user-friends"],
+    queryKey: ['get-list-user-friends'],
     queryFn: async () => {
       const response = await UserSocialsApi.GetUserFriends();
       return response;

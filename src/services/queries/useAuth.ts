@@ -1,6 +1,6 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { AuthScoialsApi } from "../apiRequest";
-import { UserDataResponse } from "@/types/users";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { AuthScoialsApi } from '../apiRequest';
+import { UserDataResponse } from '@/types/users';
 
 export const useRegisterMutation = () => {
   return useMutation({
@@ -16,15 +16,13 @@ export const useRegisterMutation = () => {
 
 export const useLoginMutation = () => {
   return useMutation({
-    mutationFn: (body: { email: string; password: string }) =>
-      AuthScoialsApi.Login({ body }),
+    mutationFn: (body: { email: string; password: string }) => AuthScoialsApi.Login({ body }),
   });
 };
 
 export const useUserInfor = () => {
-
   return useQuery<UserDataResponse>({
-    queryKey: ["get-user-infor"],
+    queryKey: ['get-user-infor'],
     queryFn: async () => {
       const response = await AuthScoialsApi.GetUserInfor();
       return response;

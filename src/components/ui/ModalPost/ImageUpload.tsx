@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 type Props = {
   onNext: () => void;
   setImagePreviewUrls: (urls: string[]) => void;

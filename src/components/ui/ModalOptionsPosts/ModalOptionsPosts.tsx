@@ -1,20 +1,20 @@
-"use client";
-import Spinner from "@/components/common/Loading/Spinner";
-import { useDeletePostMutation } from "@/services/queries/usePost";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+'use client';
+import Spinner from '@/components/common/Loading/Spinner';
+import { useDeletePostMutation } from '@/services/queries/usePost';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 const ModalOptionsPosts = ({
   setShowOptionsModal,
   postId,
   onDeletePost = () => {},
-  type = "Post",
+  type = 'Post',
 }: {
   setShowOptionsModal: (show: boolean) => void;
   postId: string;
   onDeletePost?: (postId: string) => void;
-  type?: "Modal" | "Post" | "Detail";
+  type?: 'Modal' | 'Post' | 'Detail';
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -24,16 +24,16 @@ const ModalOptionsPosts = ({
     try {
       setIsLoading(true);
       const response = await deleteMutate.mutateAsync(postId);
-      if (response.status === "success") {
-        if (type === "Post") {
+      if (response.status === 'success') {
+        if (type === 'Post') {
           onDeletePost(postId); // Cập nhật danh sách ở PostLayout
           setShowOptionsModal(false);
         }
-        if (type === "Detail") {
+        if (type === 'Detail') {
           setShowOptionsModal(false);
-          router.push("/");
+          router.push('/');
         }
-        if (type === "Modal") {
+        if (type === 'Modal') {
           router.back();
           setTimeout(() => {
             window.location.reload();
@@ -41,12 +41,12 @@ const ModalOptionsPosts = ({
         }
         router.refresh();
         queryClient.invalidateQueries({
-          queryKey: ["get-posts-feed"],
-          refetchType: "all",
+          queryKey: ['get-posts-feed'],
+          refetchType: 'all',
         });
       }
     } catch (error) {
-      console.log("error while deleting post", error);
+      console.log('error while deleting post', error);
     } finally {
       setIsLoading(false);
     }
@@ -63,9 +63,7 @@ const ModalOptionsPosts = ({
           onClick={handleDeletePost}
           className="w-full flex items-center justify-center p-3 border-neutral-700 border-b rounded-t-lg transition-all duration-300 cursor-pointer hover:bg-neutral-700"
         >
-          <span className="text-red-500">
-            {isLoading ? <Spinner /> : "Delete"}
-          </span>
+          <span className="text-red-500">{isLoading ? <Spinner /> : 'Delete'}</span>
         </div>
         <div className="w-full flex items-center justify-center p-3 border-t rounded-b-lg border-neutral-700 transition-all duration-300 cursor-pointer hover:bg-neutral-700">
           <span>Edit</span>

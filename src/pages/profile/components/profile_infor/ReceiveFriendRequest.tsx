@@ -1,5 +1,5 @@
-import Button from "@/components/common/Button";
-import React from "react";
+import Button from '@/components/common/Button';
+import React from 'react';
 
 type ReceiveFriendRequestProps = {
   handleAcceptFriendRequest: () => void;
@@ -17,21 +17,11 @@ const ReceiveFriendRequest = ({
       <Button size="sm" variant="secondary">
         Sent you a friend request.
       </Button>
-      <Button
-        size="sm"
-        variant="primary"
-        onClick={handleAcceptFriendRequest}
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Accept"}
+      <Button size="sm" variant="primary" onClick={handleAcceptFriendRequest} disabled={isLoading}>
+        {isLoading ? 'Loading...' : 'Accept'}
       </Button>
-      <Button
-        size="sm"
-        variant="primary"
-        onClick={handleRejectFriendRequest}
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Reject"}
+      <Button size="sm" variant="primary" onClick={handleRejectFriendRequest} disabled={isLoading}>
+        {isLoading ? 'Loading...' : 'Reject'}
       </Button>
     </div>
   );

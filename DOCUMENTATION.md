@@ -52,8 +52,6 @@
 - **Framer Motion**: Animation
 - **React Easy Crop**: Công cụ cắt ảnh
 
-
-
 ## Hướng dẫn phát triển
 
 ### Cài đặt và chạy dự án
@@ -111,11 +109,7 @@ interface TenComponentProps {
 }
 
 export default function TenComponent({ ...props }: TenComponentProps) {
-  return (
-    <div>
-      {/* Nội dung component */}
-    </div>
-  );
+  return <div>{/* Nội dung component */}</div>;
 }
 ```
 

@@ -1,10 +1,10 @@
-import { userNotificationsType } from "@/types/users";
-import Pusher from "pusher-js";
-import { useEffect } from "react";
+import { userNotificationsType } from '@/types/users';
+import Pusher from 'pusher-js';
+import { useEffect } from 'react';
 
 export const usePusherNotifications = (
   userId: string,
-  handleAddNotifications: (data: userNotificationsType) => void
+  handleAddNotifications: (data: userNotificationsType) => void,
 ) => {
   useEffect(() => {
     if (!userId) return;
@@ -17,8 +17,8 @@ export const usePusherNotifications = (
     // Đăng ký kênh user
     const channel = pusher.subscribe(`user-${userId}`);
 
-    channel.bind("notification", (data: userNotificationsType) => {
-      console.log('receive', data)
+    channel.bind('notification', (data: userNotificationsType) => {
+      console.log('receive', data);
       handleAddNotifications(data);
     });
 

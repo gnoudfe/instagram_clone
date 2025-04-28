@@ -1,10 +1,10 @@
-"use client";
+'use client';
 import {
   useChangeProfilePictureMutation,
   useDeleteProfilePictureMutation,
-} from "@/services/queries/useUser";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+} from '@/services/queries/useUser';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ModalEditAvatar = ({
   setShowEditAvatarModal,
@@ -19,32 +19,26 @@ const ModalEditAvatar = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleProfilePictureChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleProfilePictureChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setIsLoading(true);
       setIsAvatarLoading(true);
       setErrorMessage(null);
       const formData = new FormData();
-      formData.append("profilePicture", file);
+      formData.append('profilePicture', file);
 
       try {
-        const response = await changeProfilePictureMutation.mutateAsync(
-          formData
-        );
-        if (response.status === "false") {
-          setErrorMessage(
-            response.message || "Errors when uploading profile picture"
-          );
+        const response = await changeProfilePictureMutation.mutateAsync(formData);
+        if (response.status === 'false') {
+          setErrorMessage(response.message || 'Errors when uploading profile picture');
           return;
         }
         // Refresh the page to update server-side data
         router.refresh();
         setShowEditAvatarModal(false);
       } catch (error: any) {
-        console.log("error while changing profile picture", error);
+        console.log('error while changing profile picture', error);
       } finally {
         setIsLoading(false);
         setIsAvatarLoading(false);
@@ -61,7 +55,7 @@ const ModalEditAvatar = ({
       router.refresh();
       setShowEditAvatarModal(false);
     } catch (error) {
-      console.log("error while deleting profile picture", error);
+      console.log('error while deleting profile picture', error);
     } finally {
       setIsLoading(false);
       setIsAvatarLoading(false);
@@ -84,9 +78,7 @@ const ModalEditAvatar = ({
         <label
           htmlFor="profile-picture"
           className={`w-full flex items-center justify-center p-3 border-b rounded-b-lg border-neutral-700 transition-all duration-300 ${
-            isLoading
-              ? "opacity-50 cursor-not-allowed"
-              : "cursor-pointer hover:bg-neutral-700"
+            isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-neutral-700'
           }`}
         >
           <span className="text-blue-600">
@@ -115,7 +107,7 @@ const ModalEditAvatar = ({
                 Uploading...
               </>
             ) : (
-              "Upload photo"
+              'Upload photo'
             )}
           </span>
           <input

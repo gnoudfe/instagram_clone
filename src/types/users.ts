@@ -2,7 +2,7 @@ export type UserDataType = {
   _id: string;
   username: string;
   email?: string;
-  gender?: "Male" | "Female" | "Other";
+  gender?: 'Male' | 'Female' | 'Other';
   dateOfBirth?: string;
   isVerified?: boolean;
   bio?: string;
@@ -40,12 +40,12 @@ export type userListFriendsDataResponse = {
 export type userNotificationsType = {
   _id: string;
   type:
-    | "friend-request"
-    | "friend-accepted"
-    | "friend-rejected"
-    | "post-liked"
-    | "commented"
-    | "message";
+    | 'friend-request'
+    | 'friend-accepted'
+    | 'friend-rejected'
+    | 'post-liked'
+    | 'commented'
+    | 'message';
   message: string;
   recipient: string;
   sender: {
@@ -86,7 +86,7 @@ export type Postdata = {
   user: UserInfo;
   content: string;
   images: string[];
-  visibility: "Public" | "Friends" | "Private";
+  visibility: 'Public' | 'Friends' | 'Private';
   likes: UserInfo[];
   comments: Comment[];
   createdAt: string;

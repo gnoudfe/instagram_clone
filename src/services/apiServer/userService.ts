@@ -1,5 +1,5 @@
-import { getServerCookies } from "@/utils/serverCookies";
-import { AuthScoialsApi, PostSocialsApi, UserSocialsApi } from "../apiRequest";
+import { getServerCookies } from '@/utils/serverCookies';
+import { AuthScoialsApi, PostSocialsApi, UserSocialsApi } from '../apiRequest';
 
 export async function getUserInfor() {
   const { cookieHeader } = await getServerCookies();
@@ -29,7 +29,6 @@ export async function GetUserPosts() {
   });
   return response;
 }
-
 
 export async function GetOtherUserPosts({ userId }: { userId: string }) {
   const { cookieHeader } = await getServerCookies();

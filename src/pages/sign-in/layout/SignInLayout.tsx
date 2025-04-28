@@ -1,5 +1,5 @@
-import React from "react";
-import { SignInLayoutProps } from "../types/type";
+import React from 'react';
+import { SignInLayoutProps } from '../types/type';
 
 const SignInLayout = ({ content }: SignInLayoutProps) => {
   return (

@@ -1,5 +1,5 @@
-import { UserDataType } from "@/types/users";
-import React from "react";
+import { UserDataType } from '@/types/users';
+import React from 'react';
 
 interface UserCardProps {
   userData: UserDataType;
@@ -12,7 +12,7 @@ const UserCard = ({ userData }: UserCardProps) => {
         <img
           src={
             userData?.profilePicture ||
-            "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
+            'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg'
           }
           alt="avatar image"
           className="w-[44px] h-[44px] rounded-full object-cover block cursor-pointer"

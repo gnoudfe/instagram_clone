@@ -1,5 +1,5 @@
-import React from "react";
-import StoryItem from "./StoryItem";
+import React from 'react';
+import StoryItem from './StoryItem';
 
 const StoryLayout = () => {
   return (

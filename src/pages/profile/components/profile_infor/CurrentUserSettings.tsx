@@ -1,8 +1,12 @@
-import Button from "@/components/common/Button";
-import Link from "next/link";
-import React from "react";
+import Button from '@/components/common/Button';
+import Link from 'next/link';
+import React from 'react';
 
-const CurrentUserSettings = ({handleShowModalSettings} : { handleShowModalSettings : () => void}) => {
+const CurrentUserSettings = ({
+  handleShowModalSettings,
+}: {
+  handleShowModalSettings: () => void;
+}) => {
   return (
     <div className="flex items-center gap-3">
       <Button size="sm" variant="secondary">

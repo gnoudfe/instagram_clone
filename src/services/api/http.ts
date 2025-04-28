@@ -10,12 +10,12 @@ export class ApiClient {
   private prefix: string;
   private headers: Record<string, string>;
 
-  constructor(host: string, prefix: string = "") {
+  constructor(host: string, prefix: string = '') {
     this.host = host;
     this.prefix = prefix;
     this.headers = {
-      Accept: "application/json",
-      lang: "vi",
+      Accept: 'application/json',
+      lang: 'vi',
     };
   }
   private get basePath(): string {
@@ -32,12 +32,8 @@ export class ApiClient {
     }
 
     // Kiểm tra nếu body là FormData thì không thiết lập Content-Type
-    if (
-      config.body &&
-      !(config.body instanceof FormData) &&
-      config.method !== "GET"
-    ) {
-      headers["Content-Type"] = "application/json"; // Giữ Content-Type là "application/json" nếu không phải FormData
+    if (config.body && !(config.body instanceof FormData) && config.method !== 'GET') {
+      headers['Content-Type'] = 'application/json'; // Giữ Content-Type là "application/json" nếu không phải FormData
     }
 
     return headers;
@@ -52,12 +48,7 @@ export class ApiClient {
     config?: CustomFetchConfig;
     isServer?: boolean;
   }): Promise<any> {
-    const {
-      method = "GET",
-      body,
-      headers: customHeaders,
-      ...restConfig
-    } = config;
+    const { method = 'GET', body, headers: customHeaders, ...restConfig } = config;
     const headers = {
       ...this.getHeaders(config),
       ...customHeaders,
@@ -68,14 +59,9 @@ export class ApiClient {
     const fetchConfig: RequestInit = {
       method,
       headers,
-      credentials: isServer ? "omit" : "include", // client => include
-      body:
-        method !== "GET" && body
-          ? isFormData
-            ? body
-            : JSON.stringify(body)
-          : undefined,
-      cache: "no-cache" as RequestCache,
+      credentials: isServer ? 'omit' : 'include', // client => include
+      body: method !== 'GET' && body ? (isFormData ? body : JSON.stringify(body)) : undefined,
+      cache: 'no-cache' as RequestCache,
       ...restConfig,
     };
 
@@ -84,8 +70,8 @@ export class ApiClient {
       return response.json();
     } catch (error: any) {
       return {
-        status: "error",
-        message: error.message || "Something went wrong",
+        status: 'error',
+        message: error.message || 'Something went wrong',
       };
     }
   }

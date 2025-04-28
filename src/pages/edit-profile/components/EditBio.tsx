@@ -1,17 +1,17 @@
-"use client";
-import React, { useState } from "react";
-import Button from "@/components/common/Button";
-import { UserSocialsApi } from "@/services/apiRequest";
-import { useRouter } from "next/navigation";
-import { UserDataType } from "@/types/users";
+'use client';
+import React, { useState } from 'react';
+import Button from '@/components/common/Button';
+import { UserSocialsApi } from '@/services/apiRequest';
+import { useRouter } from 'next/navigation';
+import { UserDataType } from '@/types/users';
 
 interface EditBioProps {
   userData?: UserDataType;
 }
 
 const EditBio = ({ userData }: EditBioProps) => {
-  const [bio, setBio] = useState(userData?.bio || "");
-  const [bioRaw, setBioRaw] = useState(userData?.bio || ""); // Thêm state cho bioRaw
+  const [bio, setBio] = useState(userData?.bio || '');
+  const [bioRaw, setBioRaw] = useState(userData?.bio || ''); // Thêm state cho bioRaw
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -27,7 +27,7 @@ const EditBio = ({ userData }: EditBioProps) => {
       await UserSocialsApi.UpdateBio(bio);
       router.refresh(); // Refresh để cập nhật dữ liệu từ server
     } catch (error) {
-      console.error("Error updating bio:", error);
+      console.error('Error updating bio:', error);
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +70,7 @@ const EditBio = ({ userData }: EditBioProps) => {
                 Updating...
               </>
             ) : (
-              "Update Bio"
+              'Update Bio'
             )}
           </Button>
         </div>

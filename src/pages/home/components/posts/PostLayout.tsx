@@ -1,24 +1,25 @@
-"use client";
-import React, { useCallback, useEffect, useState } from "react";
-import PostHeader from "./PostHeader";
-import PostContent from "./PostContent";
-import PostActions from "./PostActions";
-import PostFooter from "./PostFooter";
-import PostComment from "./PostComment";
-import { useGetPostsFeed } from "@/services/queries/usePost";
-import InfiniteScroll from "@/hooks/useInfiniteScroll";
-import Spinner from "@/components/common/Loading/Spinner";
-import ModalOptionsPosts from "@/components/ui/ModalOptionsPosts/ModalOptionsPosts";
+'use client';
+import React, { useCallback, useEffect, useState } from 'react';
+import PostHeader from './PostHeader';
+import PostContent from './PostContent';
+import PostActions from './PostActions';
+import PostFooter from './PostFooter';
+import PostComment from './PostComment';
+import { useGetPostsFeed } from '@/services/queries/usePost';
+import InfiniteScroll from '@/hooks/useInfiniteScroll';
+import Spinner from '@/components/common/Loading/Spinner';
+import ModalOptionsPosts from '@/components/ui/ModalOptionsPosts/ModalOptionsPosts';
 
 const PostLayout = () => {
   const [showOptionsModal, setShowOptionsModal] = useState(false);
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useGetPostsFeed({ limit: 2 });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useGetPostsFeed({
+    limit: 2,
+  });
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [feedPosts, setFeedPosts] = useState<any[]>([]);
 
   const currentUserId = data?.pages[0]?.currentUserId;
-  console.log('currentUserId', currentUserId)
+  console.log('currentUserId', currentUserId);
 
   // Cập nhật feedPosts mỗi khi data thay đổi
   useEffect(() => {
@@ -52,7 +53,7 @@ const PostLayout = () => {
               <PostHeader
                 userData={post?.user}
                 createdAt={post?.createdAt}
-                currentUserId={currentUserId || ""}
+                currentUserId={currentUserId || ''}
                 setShowOptionsModal={(show: boolean) => {
                   setSelectedPostId(post._id);
                   setShowOptionsModal(show);

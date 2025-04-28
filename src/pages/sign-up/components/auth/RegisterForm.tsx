@@ -1,24 +1,24 @@
-"use client";
-import Button from "@/components/common/Button";
-import Input from "@/components/common/Input";
-import Link from "next/link";
-import React, { useState } from "react";
-import { Credentials } from "../../types/types";
-import { validateField } from "@/utils/validateField";
-import { useRegisterMutation } from "@/services/queries/useAuth";
+'use client';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { Credentials } from '../../types/types';
+import { validateField } from '@/utils/validateField';
+import { useRegisterMutation } from '@/services/queries/useAuth';
 
 const genders = [
   {
     id: 1,
-    name: "Male",
+    name: 'Male',
   },
   {
     id: 2,
-    name: "Female",
+    name: 'Female',
   },
   {
     id: 3,
-    name: "Other",
+    name: 'Other',
   },
 ];
 
@@ -26,24 +26,24 @@ type Errors = Partial<Record<keyof Credentials, string>>;
 
 const RegisterForm = () => {
   const [credentials, setCredentials] = useState<Credentials>({
-    username: "",
-    password: "",
-    email: "",
-    dob: "",
-    gender: "",
+    username: '',
+    password: '',
+    email: '',
+    dob: '',
+    gender: '',
   });
   const registerMutation = useRegisterMutation();
 
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
-  const [responseError, setResponseError] = useState("");
-  const [responseSuccess, setResponseSuccess] = useState("");
+  const [responseError, setResponseError] = useState('');
+  const [responseSuccess, setResponseSuccess] = useState('');
 
   const [showGender, setShowGender] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setResponseError("");
-    setResponseSuccess("");
+    setResponseError('');
+    setResponseSuccess('');
     const { name, value } = e.target;
     setCredentials((prev) => ({ ...prev, [name]: value }));
     const error = validateField(name as keyof Credentials, value);
@@ -52,9 +52,9 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setResponseError("");
-    setResponseSuccess("");
-    if(loading) return;
+    setResponseError('');
+    setResponseSuccess('');
+    if (loading) return;
     const validationErros: Errors = {};
     Object.keys(credentials).forEach((key) => {
       const field = key as keyof Credentials;
@@ -75,15 +75,15 @@ const RegisterForm = () => {
         dateOfBirth: credentials.dob,
         gender: credentials.gender,
       });
-      if (response.status === "success") {
+      if (response.status === 'success') {
         setResponseSuccess(response.message);
-        setResponseError("");
+        setResponseError('');
       } else {
         setResponseError(response.message);
-        setResponseSuccess("");
+        setResponseSuccess('');
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error('Login failed:', error);
     } finally {
       setLoading(false);
     }
@@ -98,9 +98,7 @@ const RegisterForm = () => {
         value={credentials.username}
         onChange={handleChange}
       />
-      {errors.username && (
-        <p className="text-sm text-red-500"> {errors.username}</p>
-      )}
+      {errors.username && <p className="text-sm text-red-500"> {errors.username}</p>}
       <Input
         type="email"
         placeholder="Email"
@@ -116,9 +114,7 @@ const RegisterForm = () => {
         value={credentials.password}
         onChange={handleChange}
       />
-      {errors.password && (
-        <p className="text-sm text-red-500"> {errors.password}</p>
-      )}
+      {errors.password && <p className="text-sm text-red-500"> {errors.password}</p>}
       <Input
         type="date"
         placeholder="Date of brith"
@@ -131,16 +127,14 @@ const RegisterForm = () => {
         className="relative w-full p-2 bg-[#121212] border border-gray-700 rounded text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none text-sm cursor-pointer  select-none"
         onClick={() => setShowGender(!showGender)}
       >
-        {credentials.gender || "Gender"}
+        {credentials.gender || 'Gender'}
         {showGender && (
           <ul className="absolute  top-[50px] left-0 w-full bg-[#121212] rounded-lg ">
             {genders.map((gender) => (
               <li
                 key={gender.id}
                 className="w-full p-2 cursor-pointer hover:bg-slate-800 transition-all"
-                onClick={() =>
-                  setCredentials((prev) => ({ ...prev, gender: gender.name }))
-                }
+                onClick={() => setCredentials((prev) => ({ ...prev, gender: gender.name }))}
               >
                 {gender.name}
               </li>
@@ -148,22 +142,18 @@ const RegisterForm = () => {
           </ul>
         )}
       </div>
-      {errors.gender && (
-        <p className="text-sm text-red-500"> {errors.gender}</p>
-      )}
+      {errors.gender && <p className="text-sm text-red-500"> {errors.gender}</p>}
       <p className="text-sm text-white text-center">
-        Already have an account?{" "}
+        Already have an account?{' '}
         <Link href="/sign-in" className="text-slate-500  font-bold">
           Log in
         </Link>
       </p>
-      {responseError && (
-        <p className="text-sm text-red-500"> {responseError}</p>
-      )}
-      {responseSuccess && (
-        <p className="text-sm text-green-500"> {responseSuccess}</p>
-      )}
-      <Button type="submit" disabled={loading}>{loading ? "Loading..." : "Sign up"}</Button>
+      {responseError && <p className="text-sm text-red-500"> {responseError}</p>}
+      {responseSuccess && <p className="text-sm text-green-500"> {responseSuccess}</p>}
+      <Button type="submit" disabled={loading}>
+        {loading ? 'Loading...' : 'Sign up'}
+      </Button>
     </form>
   );
 };

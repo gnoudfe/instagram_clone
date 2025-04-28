@@ -1,11 +1,8 @@
-import React from "react";
-import ProfileInfor from "../components/profile_infor/ProfileInfor";
-import ProfileContent from "../components/profile_content/ProfileContent";
-import { PostDataResponse, UserDataResponse } from "@/types/users";
-import {
-  GetOtherUserPosts,
-  GetUserInforById,
-} from "@/services/apiServer/userService";
+import React from 'react';
+import ProfileInfor from '../components/profile_infor/ProfileInfor';
+import ProfileContent from '../components/profile_content/ProfileContent';
+import { PostDataResponse, UserDataResponse } from '@/types/users';
+import { GetOtherUserPosts, GetUserInforById } from '@/services/apiServer/userService';
 
 interface ProfileLayoutProps {
   slug: string;

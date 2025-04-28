@@ -1,16 +1,12 @@
-import { dancingScript } from "@/assets/fonts/fonts";
-import Button from "@/components/common/Button";
-import React from "react";
-import LoginForm from "./LoginForm";
+import { dancingScript } from '@/assets/fonts/fonts';
+import Button from '@/components/common/Button';
+import React from 'react';
+import LoginForm from './LoginForm';
 
 const Login = () => {
   return (
     <div className="w-full  border border-gray-700  rounded-lg p-8 mx-3 flex flex-col">
-      <h1
-        className={`text-center text-3xl font-bold ${dancingScript.className}`}
-      >
-        Instagram
-      </h1>
+      <h1 className={`text-center text-3xl font-bold ${dancingScript.className}`}>Instagram</h1>
       <p className="text-center text-base w-full mt-4">
         Log in to see photos and videos from your friends.
       </p>

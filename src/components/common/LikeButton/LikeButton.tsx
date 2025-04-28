@@ -1,8 +1,8 @@
-"use client";
-import LikeIcon from "@/components/icons/Like/LikeIcon";
-import LikedIcon from "@/components/icons/Liked/LikedIcon";
-import { motion } from "framer-motion";
-import React from "react";
+'use client';
+import LikeIcon from '@/components/icons/Like/LikeIcon';
+import LikedIcon from '@/components/icons/Liked/LikedIcon';
+import { motion } from 'framer-motion';
+import React from 'react';
 
 interface LikeButtonProps {
   isLike: boolean;
@@ -11,12 +11,8 @@ interface LikeButtonProps {
 
 const LikeButton = ({ isLike = false, handleLike }: LikeButtonProps) => {
   return (
-    <button
-      className="cursor-pointer hover:opacity-80 relative"
-      role="button"
-      onClick={handleLike}
-    >
-      <div className={isLike ? "opacity-0" : "opacity-100"}>
+    <button className="cursor-pointer hover:opacity-80 relative" role="button" onClick={handleLike}>
+      <div className={isLike ? 'opacity-0' : 'opacity-100'}>
         <LikeIcon />
       </div>
       {isLike && (

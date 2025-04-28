@@ -1,12 +1,9 @@
+import React from 'react';
+import StoryLayout from '../components/stories/StoryLayout';
+import PostLayout from '../components/posts/PostLayout';
+import AccountLayout from '../components/account/AccountLayout';
 
-import React from "react";
-import StoryLayout from "../components/stories/StoryLayout";
-import PostLayout from "../components/posts/PostLayout";
-import AccountLayout from "../components/account/AccountLayout";
-
-const HomeLayout = async() => {
-
-
+const HomeLayout = async () => {
   return (
     <div className="mt-4 w-[100%] items-center justify-center flex pl-[310px] gap-32">
       <div className="max-w-[630px]  w-full flex flex-col gap-10">

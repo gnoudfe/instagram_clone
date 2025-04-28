@@ -1,13 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { usePhotoEditor } from "react-photo-editor";
-import ImageAdjustment from "./ImageAdjustment";
-import ImageFilterOptions from "./ImageFilterOptions";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+'use client';
+import React, { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { usePhotoEditor } from 'react-photo-editor';
+import ImageAdjustment from './ImageAdjustment';
+import ImageFilterOptions from './ImageFilterOptions';
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 
 type Props = {
   croppedFiles: File[];
@@ -15,14 +15,8 @@ type Props = {
   onConfirm: (editedFiles: File[], finalImages: string[]) => void;
 };
 
-const MultiImageEditor: React.FC<Props> = ({
-  croppedFiles,
-  onBack,
-  onConfirm,
-}) => {
-  const [imageFilters, setImageFilters] = useState(() =>
-    croppedFiles.map(() => "Original")
-  );
+const MultiImageEditor: React.FC<Props> = ({ croppedFiles, onBack, onConfirm }) => {
+  const [imageFilters, setImageFilters] = useState(() => croppedFiles.map(() => 'Original'));
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
   const handleChangeStep = (step: number) => {
@@ -52,13 +46,13 @@ const MultiImageEditor: React.FC<Props> = ({
       if (!canvas) continue;
 
       const blob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob((blob) => resolve(blob), "image/png")
+        canvas.toBlob((blob) => resolve(blob), 'image/png'),
       );
 
       if (!blob) continue;
 
       const file = new File([blob], `edited-${Date.now()}.png`, {
-        type: "image/png",
+        type: 'image/png',
       });
       if (file) {
         const finalImageUrl = URL.createObjectURL(file);
@@ -78,10 +72,7 @@ const MultiImageEditor: React.FC<Props> = ({
         <button className="absolute left-5 " onClick={onBack}>
           ← Back
         </button>
-        <button
-          className="absolute right-5 text-blue-600"
-          onClick={handleConfirm}
-        >
+        <button className="absolute right-5 text-blue-600" onClick={handleConfirm}>
           Next
         </button>
       </div>
@@ -106,9 +97,9 @@ const MultiImageEditor: React.FC<Props> = ({
                     <canvas
                       ref={editor.canvasRef}
                       style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
                       }}
                     />
                   )}
@@ -129,27 +120,27 @@ const MultiImageEditor: React.FC<Props> = ({
           <div className="flex w-full items-center justify-center border-b border-zinc-700">
             <div
               className={`w-1/2 text-center p-3 cursor-pointer text-base font-normal transition-all relative  ${
-                currentStep === 1 ? " text-white" : " text-[#919191]"
+                currentStep === 1 ? ' text-white' : ' text-[#919191]'
               }`}
               onClick={() => handleChangeStep(1)}
             >
               Filters
               <div
                 className={`absolute bottom-0 left-0 right-0 h-[2px] bg-white transition-opacity duration-300  ${
-                  currentStep === 1 ? "opacity-1" : "opacity-0"
+                  currentStep === 1 ? 'opacity-1' : 'opacity-0'
                 }`}
               ></div>
             </div>
             <div
               className={`w-1/2 text-center p-3 cursor-pointer text-base font-normal transition-all relative  ${
-                currentStep === 2 ? " text-white" : " text-[#919191]"
+                currentStep === 2 ? ' text-white' : ' text-[#919191]'
               }`}
               onClick={() => handleChangeStep(2)}
             >
               Adjustments
               <div
                 className={`absolute bottom-0 left-0 right-0 h-[2px] bg-white transition-opacity duration-300  ${
-                  currentStep === 2 ? "opacity-1" : "opacity-0"
+                  currentStep === 2 ? 'opacity-1' : 'opacity-0'
                 }`}
               ></div>
             </div>

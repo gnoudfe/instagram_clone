@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 type InfiniteScrollProps = {
   loadMore: () => void;
@@ -6,11 +6,7 @@ type InfiniteScrollProps = {
   children: React.ReactNode;
 };
 
-const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
-  loadMore,
-  hasMore,
-  children,
-}) => {
+const InfiniteScroll: React.FC<InfiniteScrollProps> = ({ loadMore, hasMore, children }) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,8 +37,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   return (
     <>
       {children}
-      <div ref={sentinelRef} style={{ height: "20px" }} />{" "}
-      {/* Đối tượng quan sát */}
+      <div ref={sentinelRef} style={{ height: '20px' }} /> {/* Đối tượng quan sát */}
     </>
   );
 };

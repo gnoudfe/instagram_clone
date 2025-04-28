@@ -1,5 +1,5 @@
-import StoryItem from "@/pages/home/components/stories/StoryItem";
-import React from "react";
+import StoryItem from '@/pages/home/components/stories/StoryItem';
+import React from 'react';
 
 const StoryHighlight = () => {
   return (

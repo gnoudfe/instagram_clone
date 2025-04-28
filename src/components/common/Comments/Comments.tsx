@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Comments = () => {
   return (
@@ -11,9 +11,7 @@ const Comments = () => {
       <div className="flex flex-col ">
         <div className="flex items-center gap-2">
           <span className="text-sm font-normal">Duongg</span>
-          <span className="text-sm font-normal text-neutral-400">
-            Taptelammau
-          </span>
+          <span className="text-sm font-normal text-neutral-400">Taptelammau</span>
         </div>
         <span className="text-sm font-normal text-neutral-600">5d</span>
       </div>

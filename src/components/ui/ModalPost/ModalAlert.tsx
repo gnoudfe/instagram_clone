@@ -1,6 +1,6 @@
-"use client";
-import { usePostModal } from "@/context/ModalPostContext";
-import React from "react";
+'use client';
+import { usePostModal } from '@/context/ModalPostContext';
+import React from 'react';
 
 interface ModalAlertProps {
   message: string;
@@ -8,11 +8,7 @@ interface ModalAlertProps {
   onClose: () => void;
 }
 
-const ModalAlert: React.FC<ModalAlertProps> = ({
-  message,
-  subMessage,
-  onClose,
-}) => {
+const ModalAlert: React.FC<ModalAlertProps> = ({ message, subMessage, onClose }) => {
   const { setShowAlertModal } = usePostModal();
 
   return (
