@@ -18,6 +18,7 @@ const PostLayout = () => {
   const [feedPosts, setFeedPosts] = useState<any[]>([]);
 
   const currentUserId = data?.pages[0]?.currentUserId;
+  console.log('currentUserId', currentUserId)
 
   // Cập nhật feedPosts mỗi khi data thay đổi
   useEffect(() => {
@@ -45,8 +46,8 @@ const PostLayout = () => {
   return (
     <>
       <InfiniteScroll loadMore={handleLoadMore} hasMore={hasNextPage}>
-        {feedPosts?.map((post) => (
-          <div key={post._id}>
+        {feedPosts?.map((post, index) => (
+          <div key={index}>
             <div className="border-b border-neutral-600 mb-4 pb-6 w-full flex flex-col gap-2">
               <PostHeader
                 userData={post?.user}

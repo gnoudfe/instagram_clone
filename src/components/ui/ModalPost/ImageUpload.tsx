@@ -2,27 +2,27 @@
 import React from "react";
 type Props = {
   onNext: () => void;
-  setImagePreviewUrl: (url: string) => void;
+  setImagePreviewUrls: (urls: string[]) => void;
 };
-const ImageUpload = ({ onNext, setImagePreviewUrl }: Props) => {
+const ImageUpload = ({ onNext, setImagePreviewUrls }: Props) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImagePreviewUrl(url);
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const urls = Array.from(files).map((file) => URL.createObjectURL(file));
+      setImagePreviewUrls(urls);
       onNext(); // đi đến bước crop
     }
   };
 
   return (
-    <div className="relative z-10 w-full max-w-[692px] h-[660px] rounded-sm flex flex-col">
+    <div className="relative z-10 w-full max-w-[690px] h-[690px] rounded-sm flex flex-col">
       {/* header */}
       <div className="h-[42px] bg-black text-white  flex items-center justify-center font-semibold relative ">
         <span> Create new post</span>
       </div>
       <label
         htmlFor="file-upload"
-        className="w-[692px] h-full flex flex-col gap-2 items-center justify-center bg-neutral-800 cursor-pointer"
+        className="w-full h-full flex flex-col gap-2 items-center justify-center bg-neutral-800 cursor-pointer"
       >
         <svg
           aria-label="Icon to represent media such as images or videos"

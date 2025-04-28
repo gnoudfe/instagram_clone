@@ -2,15 +2,14 @@
 import { usePostModal } from "@/context/ModalPostContext";
 import React, { useEffect, useState } from "react";
 import ImageUpload from "./ImageUpload";
-import ImageCrop from "./ImageCrop";
-import ImageFilter from "./ImageFilter";
 import ImageContent from "./ImageContent";
 import ModalAlert from "./ModalAlert";
 import MultiImageCrop from "./ImageCrop";
+import MultiImageEditor from "./MultiImageEditor";
 
 const ModalPost = () => {
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
-  const [croppedFile, setCroppedFile] = useState<File | null>(null);
+  const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
+  const [croppedFiles, setCroppedFiles] = useState<File[]>([]);
   const {
     isOpen,
     closeModal,
@@ -20,8 +19,8 @@ const ModalPost = () => {
     showAlertModal,
     confirmCloseModal,
   } = usePostModal();
-  const [finalImage, setFinalImage] = useState<string | null>(null);
-  const [finalFile, setFinalFile] = useState<File | null>(null);
+  const [finalImage, setFinalImage] = useState<string[]>([]);
+  const [finalFile, setFinalFile] = useState<File[]>([]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -38,6 +37,12 @@ const ModalPost = () => {
       window.removeEventListener("keydown", handleEscape);
     };
   }, [isOpen, closeModal]);
+
+  const handleConfirmEdit = (editedFiles: File[], finalImages: string[]) => {
+    setFinalFile(editedFiles);
+    setFinalImage(finalImages);
+    handleNext();
+  };
 
   if (!isOpen) return null;
 
@@ -58,26 +63,22 @@ const ModalPost = () => {
         {step === 1 && (
           <ImageUpload
             onNext={handleNext}
-            setImagePreviewUrl={setImagePreviewUrl}
+            setImagePreviewUrls={setImagePreviewUrls}
           />
         )}
-        {step === 2 && imagePreviewUrl && (
+        {step === 2 && imagePreviewUrls && (
           <MultiImageCrop
-            imagePreviewUrl={imagePreviewUrl}
-            setCroppedFile={setCroppedFile}
+            imagePreviewUrls={imagePreviewUrls}
+            setCroppedFiles={setCroppedFiles}
             onNext={handleNext}
             onBack={handleBack}
           />
         )}
-        {step === 3 && croppedFile && (
-          <ImageFilter
-            croppedFile={croppedFile}
+        {step === 3 && croppedFiles && (
+          <MultiImageEditor
+            croppedFiles={croppedFiles}
             onBack={handleBack}
-            onConfirm={(finalImage, file) => {
-              setFinalImage(finalImage);
-              setFinalFile(file);
-              handleNext();
-            }}
+            onConfirm={handleConfirmEdit}
           />
         )}
         {step === 4 && finalImage && finalFile && (

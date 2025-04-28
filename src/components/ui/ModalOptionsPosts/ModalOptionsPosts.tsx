@@ -1,28 +1,49 @@
 "use client";
 import Spinner from "@/components/common/Loading/Spinner";
 import { useDeletePostMutation } from "@/services/queries/usePost";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const ModalOptionsPosts = ({
   setShowOptionsModal,
   postId,
-  onDeletePost,
+  onDeletePost = () => {},
+  type = "Post",
 }: {
   setShowOptionsModal: (show: boolean) => void;
   postId: string;
-  onDeletePost: (postId: string) => void;
+  onDeletePost?: (postId: string) => void;
+  type?: "Modal" | "Post" | "Detail";
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
   const deleteMutate = useDeletePostMutation();
-
+  const queryClient = useQueryClient();
   const handleDeletePost = async () => {
     try {
       setIsLoading(true);
       const response = await deleteMutate.mutateAsync(postId);
       if (response.status === "success") {
-        onDeletePost(postId); // Cập nhật danh sách ở PostLayout
-        setShowOptionsModal(false);
+        if (type === "Post") {
+          onDeletePost(postId); // Cập nhật danh sách ở PostLayout
+          setShowOptionsModal(false);
+        }
+        if (type === "Detail") {
+          setShowOptionsModal(false);
+          router.push("/");
+        }
+        if (type === "Modal") {
+          router.back();
+          setTimeout(() => {
+            window.location.reload();
+          }, 400);
+        }
+        router.refresh();
+        queryClient.invalidateQueries({
+          queryKey: ["get-posts-feed"],
+          refetchType: "all",
+        });
       }
     } catch (error) {
       console.log("error while deleting post", error);

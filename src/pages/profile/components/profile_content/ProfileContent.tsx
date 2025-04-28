@@ -9,6 +9,11 @@ interface ProfileContentProps {
 const ProfileContent = ({ postsData }: ProfileContentProps) => {
   return (
     <div className=" w-full max-w-[1000px]  border-t-zinc-500 border-t pt-10">
+      {postsData?.length === 0 && (
+        <div className="w-full text-neutral-500  text-center">
+          User didn&apos;t post anything yet!
+        </div>
+      )}
       <div className=" grid grid-cols-3 gap-2 w-full pb-14">
         {postsData?.map((post) => (
           <Link href={`/${post.user?._id}/${post._id}`} key={post._id}>

@@ -3,27 +3,27 @@ import getCroppedImg from "@/utils/cropImage";
 import React, { useCallback, useState } from "react";
 import Cropper from "react-easy-crop";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 type ImageCropProps = {
   imagePreviewUrls: string[];
-  onNext: (croppedFiles: File[]) => void;
+  setCroppedFiles: (files: File[]) => void;
+  onNext: () => void;
   onBack: () => void;
 };
 
-const imagePreviewUrlsTests = [
-  "https://res.cloudinary.com/dwo7uuloy/image/upload/v1745249342/social-media-posts/vdc0d4x5pw2ren5qbfbe.png",
-  "https://res.cloudinary.com/dwo7uuloy/image/upload/v1745243472/social-media-posts/gcf2nxgjtck0gpxwxs5r.png",
-];
-
 const MultiImageCrop = ({
   imagePreviewUrls,
+  setCroppedFiles,
   onNext,
   onBack,
 }: ImageCropProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cropStates, setCropStates] = useState(
-    imagePreviewUrlsTests.map(() => ({
+    imagePreviewUrls.map(() => ({
       crop: { x: 0, y: 0 },
       zoom: 1,
       croppedAreaPixels: null,
@@ -54,21 +54,21 @@ const MultiImageCrop = ({
   const handleCropConfirm = async () => {
     const croppedFiles: File[] = [];
 
-    for (let i = 0; i < imagePreviewUrlsTests.length; i++) {
+    for (let i = 0; i < imagePreviewUrls.length; i++) {
       const { croppedAreaPixels } = cropStates[i];
 
       if (croppedAreaPixels) {
         const cropped = await getCroppedImg(
-          imagePreviewUrlsTests[i],
+          imagePreviewUrls[i],
           croppedAreaPixels,
           `crop-image${[i]}`
         );
         croppedFiles.push(cropped);
       } else {
         try {
-          const res = await fetch(imagePreviewUrlsTests[i]);
+          const res = await fetch(imagePreviewUrls[i]);
           const blob = await res.blob();
-          const originalFile = new File([blob], `original-image-${i}.jpg`, {
+          const originalFile = new File([blob], `original-image-${i}.png`, {
             type: blob.type,
           });
           croppedFiles.push(originalFile);
@@ -77,13 +77,14 @@ const MultiImageCrop = ({
         }
       }
     }
-    console.log("cropFiles",croppedFiles)
+    console.log("cropFiles", croppedFiles);
+    setCroppedFiles(croppedFiles);
 
-    onNext(croppedFiles);
+    onNext();
   };
 
   return (
-    <div className="relative w-[700px] h-[700px] flex flex-col rounded bg-neutral-900 text-white animate-fade-in">
+    <div className="relative w-[600px]  flex flex-col rounded bg-neutral-900 text-white animate-fade-in">
       {/* Header */}
       <div className="h-[42px] bg-black text-white text-sm  z-20 flex items-center  justify-center font-semibold relative ">
         <button className="absolute left-5" onClick={onBack}>
@@ -102,18 +103,22 @@ const MultiImageCrop = ({
       <div className="flex-1 relative">
         <Swiper
           onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
-          spaceBetween={10}
           slidesPerView={1}
           allowTouchMove={false}
+          modules={[Navigation]}
+          navigation={{
+            nextEl: `.btn-next-image`,
+            prevEl: `.btn-prev-image`,
+          }}
         >
-          {imagePreviewUrlsTests.map((url, index) => (
+          {imagePreviewUrls.map((url, index) => (
             <SwiperSlide key={index}>
-              <div className="relative w-full h-[700px] bg-neutral-800">
+              <div className="relative w-full  aspect-[4/5] bg-neutral-800">
                 <Cropper
                   image={url}
                   crop={cropStates[index].crop}
                   zoom={cropStates[index].zoom}
-                  aspect={4 / 5} // Instagram post ratio
+                  aspect={4/5} // Instagram post ratio
                   onCropChange={onCropChange}
                   onZoomChange={onZoomChange}
                   onCropComplete={onCropComplete}
@@ -122,6 +127,14 @@ const MultiImageCrop = ({
             </SwiperSlide>
           ))}
         </Swiper>
+        <div>
+          <div className="btn-prev-image w-8 h-8 flex items-center justify-center rounded-full bg-white absolute z-10 top-1/2 left-2 cursor-pointer">
+            <ArrowLeftIcon color="#000" />
+          </div>
+          <div className="btn-next-image  w-8 h-8 flex items-center justify-center rounded-full bg-white absolute z-10 top-1/2 right-2 cursor-pointer">
+            <ArrowRightIcon color="#000" />
+          </div>
+        </div>
       </div>
 
       {/* Zoom Slider */}

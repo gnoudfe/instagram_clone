@@ -3,8 +3,14 @@ import Spinner from "@/components/common/Loading/Spinner";
 import { usePostModal } from "@/context/ModalPostContext";
 import { useUserInfor } from "@/services/queries/useAuth";
 import { useCreatePostMutation } from "@/services/queries/usePost";
-import { useRouter } from "next/navigation";
 import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const Visiblity = [
   {
@@ -22,8 +28,8 @@ const Visiblity = [
 ];
 
 interface ImageContentProps {
-  finalImage: string | null;
-  finalFile: File | null;
+  finalImage: string[];
+  finalFile: File[];
 }
 
 const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
@@ -35,10 +41,10 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
   const [currentVisiblity, setCurrentVisiblity] = React.useState(
     Visiblity[0].value
   );
+  const router =useRouter();
 
+  const queryClient = useQueryClient();
   const { data } = useUserInfor();
-  console.log("data", data);
-  const router = useRouter();
 
   const createPostMutation = useCreatePostMutation();
 
@@ -48,7 +54,9 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
       return;
     }
     const formData = new FormData();
-    formData.append("images", finalFile!);
+    finalFile.forEach((file) => {
+      formData.append("images", file);
+    });
     formData.append("content", content);
     formData.append("visibility", currentVisiblity);
 
@@ -56,10 +64,14 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
       setIsLoading(true);
       setErrorMessage(""); // Reset error message before new request
       const response = await createPostMutation.mutateAsync(formData);
-      console.log(response); // Handle the response as needed
       if (response.status === "success") {
         confirmCloseModal();
+        queryClient.invalidateQueries({
+          queryKey: ["get-posts-feed"],
+          refetchType: "all",
+        });
         router.refresh();
+        
       } else if (response.message) {
         setErrorMessage(response.message);
       }
@@ -87,7 +99,7 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
   };
 
   return (
-    <div className="relative z-10 w-full max-w-[1072px] h-[775px] rounded-sm flex flex-col animate-fade-in">
+    <div className="relative z-10 w-full max-w-[1000px] rounded-sm flex flex-col animate-fade-in">
       {/* header */}
       <div className="h-[42px] bg-black text-white  flex items-center justify-center font-semibold relative ">
         <span> Create new post</span>
@@ -105,15 +117,39 @@ const ImageContent = ({ finalImage, finalFile }: ImageContentProps) => {
         </div>
       )}
       {/* content */}
-      <div className="flex h-full">
-        <div className="max-w-[692px]  bg-neutral-800">
-          <img
-            src={finalImage || undefined}
-            alt="finalImage"
-            className="w-full h-full object-cover"
-          />
+      <div className="flex h-full w-full ">
+        <div className=" max-w-[600px] aspect-[4/5] w-full h-full  bg-neutral-800 relative">
+          <Swiper
+            slidesPerView={1}
+            allowTouchMove={false}
+            modules={[Navigation]}
+            navigation={{
+              nextEl: `.btn-next-image-content`,
+              prevEl: `.btn-prev-image-content`,
+            }}
+            className="w-full h-full"
+          >
+            {finalImage.map((img) => (
+              <SwiperSlide key={img} className="h-full w-full">
+                <img
+                  src={img || undefined}
+                  alt="finalImage"
+                  className="w-full h-full object-cover"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div>
+            <div className="btn-prev-image-content w-8 h-8 flex items-center justify-center rounded-full bg-white absolute z-10 top-1/2 left-2 cursor-pointer">
+              <ArrowLeftIcon color="#000" />
+            </div>
+            <div className="btn-next-image-content  w-8 h-8 flex items-center justify-center rounded-full bg-white absolute z-10 top-1/2 right-2 cursor-pointer">
+              <ArrowRightIcon color="#000" />
+            </div>
+          </div>
         </div>
-        <div className="flex-1 bg-neutral-900 h-full">
+
+        <div className="flex-1 bg-neutral-900 ">
           <div className="flex items-center gap-2 p-5">
             <img
               src={

@@ -41,10 +41,11 @@ const ImageAdjustment = ({
   zoom,
   setZoom,
 }: ImageAdjustmentProps) => {
+  console.log('brightness',brightness)
   return (
     <div className="p-5 w-full animate-fade-in">
       <div className="w-full flex flex-col gap-4">
-        <label>Brightness</label>
+        <label>{brightness}</label>
         <input
           className="accent-white w-full h-1 mb-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-neutral-600"
           type="range"

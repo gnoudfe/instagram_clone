@@ -24,6 +24,7 @@ const ModalFriends = ({ onClose }: { onClose: () => void }) => {
       if (response.status === "success") {
         router.refresh();
         queryClient.invalidateQueries({ queryKey: ["get-list-user-friends"] });
+        
       }
     } catch (error) {
       console.log("error while unfriend", error);

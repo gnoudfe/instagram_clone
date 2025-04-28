@@ -40,9 +40,9 @@ export default function getCroppedImg(
           return;
         }
 
-        const file = new File([blob], fileName, { type: "image/jpeg" });
+        const file = new File([blob], fileName, { type: "image/png" });
         resolve(file);
-      }, "image/jpeg");
+      }, "image/png");
     };
 
     image.onerror = () => {

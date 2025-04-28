@@ -1,6 +1,5 @@
 import React from "react";
 import ProfileInfor from "../components/profile_infor/ProfileInfor";
-import StoryHighlight from "../components/story_highlight/StoryHighlight";
 import ProfileContent from "../components/profile_content/ProfileContent";
 import { PostDataResponse, UserDataResponse } from "@/types/users";
 import {
@@ -17,7 +16,6 @@ const ProfileLayout = async ({ slug }: ProfileLayoutProps) => {
   const userOtherPostsData: PostDataResponse = await GetOtherUserPosts({
     userId: slug,
   });
-  console.log("userOtherPosts", userOtherPostsData);
   return (
     <div className="mt-4 w-[100%] flex flex-col  gap-12 items-center justify-center  pl-[310px]">
       <ProfileInfor
@@ -25,7 +23,7 @@ const ProfileLayout = async ({ slug }: ProfileLayoutProps) => {
         isCurrentUser={userInfordata?.isCurrentUser}
         currentUserId={userInfordata?.currentUserId}
       />
-      <StoryHighlight />
+      {/* <StoryHighlight /> */}
       <ProfileContent postsData={userOtherPostsData?.posts} />
     </div>
   );
